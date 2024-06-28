@@ -1,23 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Notifications from "./pages/Notifications.jsx";
+import Admin from "./pages/Admin.jsx";
+import Login from "./pages/Login.jsx";
+import Thesis from "./pages/Thesis.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 
+import "./App.css";
+import ProtectedRouteWithRole from "./components/ProtectRoutes/ProtectedRoutesWithRole.jsx";
 function App() {
+  const token = localStorage.getItem("token");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="container">
+      <BrowserRouter>
+        <Navbar />
+        <div className="content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <ProtectedRouteWithRole allowedRoles={["admin", "teacher", "student"]}>
+                  <Home />
+                </ProtectedRouteWithRole>
+              }
+            />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRouteWithRole allowedRoles={["admin"]}>
+                  <Admin />
+                </ProtectedRouteWithRole>
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <ProtectedRouteWithRole allowedRoles={["admin", "teacher", "student"]}>
+                  <Notifications />
+                </ProtectedRouteWithRole>
+              }
+            />
+            <Route
+              path="/theses"
+              element={
+                <ProtectedRouteWithRole allowedRoles={["admin", "teacher", "student"]}>
+                  <Thesis />
+                </ProtectedRouteWithRole>
+              }
+            />
+            <Route path="/login" element={<Login />} />
+            <Route path="*" element={<Navigate to={token ? "/" : "/login"} />} />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 }
