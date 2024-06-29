@@ -25,7 +25,10 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);
         localStorage.setItem("code", data.user.code);
-        localStorage.setItem("fullname", data.user.firstName + " " + data.user.lastName);
+        localStorage.setItem(
+          "fullname",
+          data.user.firstName + " " + data.user.lastName
+        );
         navigate("/");
       } else {
         setError(data.msg || "Đăng nhập không thành công");
@@ -39,18 +42,30 @@ const Login = () => {
   return (
     <div className="container-lg">
       <div className="login-container">
-        <h2>Đăng nhập</h2>
-        {error && <p className="error-message">{error}</p>}
-        <form onSubmit={handleLogin}>
+        <h2 className="login-title">Đăng nhập</h2>
+        <form onSubmit={handleLogin} className="form">
           <div className="form-group">
             <label>Tên đăng nhập:</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
           <div className="form-group">
             <label>Mật khẩu:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-          <button type="submit">Đăng nhập</button>
+          {error && <p className="error-message">{error}</p>}
+          <div className="form-button">
+            <button type="submit">Đăng nhập</button>
+          </div>
         </form>
       </div>
     </div>

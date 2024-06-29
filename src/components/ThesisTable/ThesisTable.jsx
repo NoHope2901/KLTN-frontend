@@ -15,11 +15,14 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   useEffect(() => {
     const fetchRegisteredThesis = async () => {
       try {
-        const response = await fetch("http://localhost:3001/theses/registered", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://localhost:3001/theses/registered",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (response.ok) {
           const data = await response.json();
           if (data.registeredThesisId) {
@@ -36,13 +39,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
       }
@@ -54,13 +60,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       }
@@ -111,39 +120,48 @@ const ThesisTable = ({ theses, fetchTheses }) => {
             <td>
               {role === "student" ? (
                 registeredThesisId === thesis._id ? (
-                  <button onClick={() => handleUnregisterTopic(thesis._id)}>Hủy</button>
+                  <button onClick={() => handleUnregisterTopic(thesis._id)}>
+                    Hủy
+                  </button>
                 ) : (
                   <button
                     onClick={() => handleRegisterTopic(thesis._id)}
-                    disabled={!!registeredThesisId || thesis.members.length >= thesis.studentQuantity}
-                  >
+                    disabled={
+                      !!registeredThesisId ||
+                      thesis.members.length >= thesis.studentQuantity
+                    }>
                     Đăng ký
                   </button>
                 )
               ) : (
                 <>
-                  <button onClick={() => handleDeleteTopic(thesis._id)}>Xóa</button>
-                  <button
-                    onClick={() => {
-                      setEditThesisId(thesis._id);
-                      setShowForm(true);
-                    }}
-                  >
-                    Sửa
-                  </button>
-                  {showForm && editThesisId === thesis._id && (
-                    <EditThesisForm
-                      onClose={() => setShowForm(false)}
-                      fetchTheses={fetchTheses}
-                      id={thesis._id}
-                      data={{
-                        thesisName: thesis.thesisName,
-                        instructor: thesis.instructor,
-                        studentQuantity: thesis.studentQuantity,
-                        require: thesis.require,
-                      }}
-                    />
-                  )}
+                  <div>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      Xóa
+                    </button>
+                    <button
+                      onClick={() => {
+                        setEditThesisId(thesis._id);
+                        setShowForm(true);
+                      }}>
+                      Sửa
+                    </button>
+                    {showForm && editThesisId === thesis._id && (
+                      <EditThesisForm
+                        onClose={() => setShowForm(false)}
+                        fetchTheses={fetchTheses}
+                        id={thesis._id}
+                        data={{
+                          thesisName: thesis.thesisName,
+                          instructor: thesis.instructor,
+                          studentQuantity: thesis.studentQuantity,
+                          require: thesis.require,
+                        }}
+                      />
+                    )}
+                  </div>
                 </>
               )}
             </td>
