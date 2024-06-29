@@ -14,6 +14,7 @@ const Thesis = () => {
       const response = await fetch("http://localhost:3001/theses");
       const data = await response.json();
       setTheses(data);
+      console.log(data);
     } catch (error) {
       console.error("Failed to fetch theses", error);
     }

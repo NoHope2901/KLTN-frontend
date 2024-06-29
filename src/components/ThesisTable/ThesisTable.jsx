@@ -102,9 +102,9 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         {theses.map((thesis, index) => (
           <tr key={thesis._id}>
             <td>{index + 1}</td>
-            <td>{thesis.code}</td>
-            <td>{thesis.instructor}</td>
-            <td>{thesis.phoneNumber}</td>
+            <td>{thesis.instructorName}</td>
+            <td>{thesis.instructorCode}</td>
+            <td>{thesis.instructorPhone}</td>
             <td>{thesis.thesisName}</td>
             <td>{thesis.members.length + "/" + thesis.studentQuantity}</td>
             <td>{thesis.require}</td>

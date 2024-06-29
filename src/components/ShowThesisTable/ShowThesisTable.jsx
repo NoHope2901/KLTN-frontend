@@ -1,25 +1,29 @@
 // src/components/ThesisTable.jsx
 import React from "react";
-import "./ThesisTable.css";
+import "./ShowThesisTable.css";
 
-const ThesisTable = ({ theses }) => {
+const ShowThesisTable = ({ theses }) => {
   return (
     <table className="thesis-table">
       <thead>
         <tr>
           <th>STT</th>
-          <th>GVHD</th>
-          <th>MÃ GV</th>
-          <th>SĐT GV</th>
-          <th>TÊN ĐỀ TÀI</th>
-          <th>SỐ LƯỢNG</th>
-          <th>YÊU CẦU</th>
-          <th>MÃ SV</th>
-          <th>HỌ ĐỆM</th>
+          <th>Kỳ</th>
+          <th>Năm</th>
+          <th>MÃ sv</th>
+          <th>Họ Đệm</th>
           <th>TÊN</th>
-          <th>LỚP CN</th>
-          <th>SĐT LIÊN HỆ</th>
-          <th>GHI CHÚ</th>
+          <th>Ngày Sinh</th>
+          <th>Lớp</th>
+          <th>SĐT</th>
+          <th>Đề Tài</th>
+          <th>GVHD</th>
+          <th>Chủ Tịch</th>
+          <th>Phản Biện</th>
+          <th>Ngày</th>
+          <th>Điểm</th>
+          <th>Gia Hạn</th>
+          <th>Trạng Thái</th>
 
           {/* Thêm các cột khác */}
         </tr>
@@ -42,4 +46,4 @@ const ThesisTable = ({ theses }) => {
   );
 };
 
-export default ThesisTable;
+export default ShowThesisTable;

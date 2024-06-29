@@ -21,16 +21,13 @@ const Login = () => {
 
       const data = await response.json();
 
-      // Kiểm tra response từ server và xử lý kết quả
       if (response.ok) {
-        // Đăng nhập thành công, lưu token vào localStorage hoặc Redux store
         localStorage.setItem("token", data.token);
         localStorage.setItem("role", data.user.role);
         localStorage.setItem("code", data.user.code);
         localStorage.setItem("fullname", data.user.firstName + " " + data.user.lastName);
         navigate("/");
       } else {
-        // Đăng nhập thất bại, hiển thị thông báo lỗi từ server
         setError(data.msg || "Đăng nhập không thành công");
       }
     } catch (error) {

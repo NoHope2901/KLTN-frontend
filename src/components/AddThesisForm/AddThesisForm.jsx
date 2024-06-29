@@ -5,19 +5,18 @@ import "./AddThesisForm.css";
 const AddThesisForm = ({ onClose, fetchTheses }) => {
   const [formData, setFormData] = useState({
     thesisName: "",
-    instructor: "",
     studentQuantity: 1,
     require: "",
   });
 
   useEffect(() => {
-    const code = localStorage.getItem("code");
-    const fullname = localStorage.getItem("fullname");
-    const instructorName = code && fullname ? `${code} - ${fullname}` : "";
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      instructor: instructorName,
-    }));
+    // const code = localStorage.getItem("code");
+    // const fullname = localStorage.getItem("fullname");
+    // const instructorName = code && fullname ? `${code} - ${fullname}` : "";
+    // setFormData((prevFormData) => ({
+    //   ...prevFormData,
+    //   instructor: instructorName,
+    // }));
   }, []);
 
   const handleChange = (e) => {
@@ -65,14 +64,7 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
             value={formData.thesisName}
             onChange={handleChange}
           />
-          <input
-            required
-            type="text"
-            name="instructor"
-            placeholder="Người hướng dẫn"
-            value={formData.instructor}
-            readOnly
-          />
+
           <input
             required
             type="number"
