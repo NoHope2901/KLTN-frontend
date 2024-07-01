@@ -1,6 +1,5 @@
 // src/pages/Homepage.jsx
 import React, { useEffect, useState } from "react";
-import "./Page.css";
 import ShowThesisTable from "../components/ShowThesisTable/ShowThesisTable";
 const Home = () => {
   const [theses, setTheses] = useState([]);

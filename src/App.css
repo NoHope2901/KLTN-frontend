@@ -15,10 +15,6 @@ html {
 .content {
   min-width: 80vw;
   width: 100%;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
-
   box-sizing: border-box;
   overflow-y: auto;
   background-color: #e0e0e0;
@@ -41,6 +37,11 @@ button:hover {
   background-color: #0056b3;
 }
 
+button[disabled]:hover {
+  background: gray;
+  cursor: not-allowed;
+}
+
 .btn-delete {
   background-color: rgb(245, 52, 52);
 }
@@ -49,6 +50,9 @@ button:hover {
   background-color: rgb(210, 35, 35);
 }
 
+label {
+  margin: 10px 0 5px;
+}
 .form-group {
   margin-bottom: 10px;
 }
@@ -69,7 +73,16 @@ input {
 }
 input[type="text"],
 input[type="password"],
-input[type="number"] {
+input[type="number"],
+input[type="datetime-local"] {
+  height: 38px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+select {
   height: 38px;
   width: 100%;
   padding: 8px;

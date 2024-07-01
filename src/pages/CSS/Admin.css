@@ -1,27 +1,6 @@
-.admin-page {
-  display: flex;
-}
-
-.tools {
-  width: 15%;
-  border-right: 1px solid gray;
-  height: 100vh;
-  padding: 0;
-  overflow: hidden;
-}
-.tools li {
-  width: 100%;
-  margin: 5px;
-  list-style-type: none;
-  height: 35px;
-  line-height: 35px;
-  padding-left: 15px;
-}
-.tools li:hover {
-  cursor: pointer;
-  background-color: #b7b7b7;
+.admin-page > h2 {
+  margin: 16px;
 }
 .tool-setup {
-  background-color: aquamarine;
   width: 100%;
 }

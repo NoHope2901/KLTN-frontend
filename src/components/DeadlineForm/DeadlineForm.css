@@ -10,28 +10,9 @@
   background-color: #f9f9f9;
 }
 
-.deadline-form h2 {
-  text-align: center;
-}
-
-.deadline-form label {
-  margin: 10px 0 5px;
-}
-
 .deadline-form input,
 .deadline-form select,
 .deadline-form button {
   padding: 10px;
   margin: 5px 0;
-}
-
-.deadline-form button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-.deadline-form button:hover {
-  background-color: #0056b3;
 }

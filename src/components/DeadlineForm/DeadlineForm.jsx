@@ -15,38 +15,59 @@ const DeadlineForm = ({ onSubmit }) => {
   };
 
   return (
-    <form className="deadline-form" onSubmit={handleSubmit}>
-      <h2>Create New Deadline</h2>
-
-      <label htmlFor="type">Kiểu</label>
-      <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
-        <option value="teacherSubmitTopics">Giáo viên tạo đề tài mới</option>
-        <option value="studentSubmitTopics">Sinh viên đăng ký đề tài</option>
-      </select>
-
-      <label htmlFor="description">Mô tả</label>
-      <input
-        type="text"
-        id="description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        required
-      />
-
-      <label htmlFor="startDate">Ngày bắt đầu</label>
-      <input
-        type="datetime-local"
-        id="startDate"
-        value={startDate}
-        onChange={(e) => setStartDate(e.target.value)}
-        required
-      />
-
-      <label htmlFor="endDate">Ngày kết thúc</label>
-      <input type="datetime-local" id="endDate" value={endDate} onChange={(e) => setEndDate(e.target.value)} required />
-
-      <button type="submit">Xong</button>
-    </form>
+    <>
+      <form className="deadline-form" onSubmit={handleSubmit}>
+        <h2 className="modal-title">Create New Deadline</h2>
+        <div className="form-group">
+          <label htmlFor="type">Kiểu</label>
+          <select
+            id="type"
+            value={type}
+            onChange={(e) => setType(e.target.value)}>
+            <option value="teacherSubmitTopics">
+              Giáo viên tạo đề tài mới
+            </option>
+            <option value="studentSubmitTopics">
+              Sinh viên đăng ký đề tài
+            </option>
+          </select>
+        </div>
+        <div className="form-group">
+          {" "}
+          <label htmlFor="description">Mô tả</label>
+          <input
+            type="text"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="startDate">Ngày bắt đầu</label>
+          <input
+            type="datetime-local"
+            id="startDate"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="endDate">Ngày kết thúc</label>
+          <input
+            type="datetime-local"
+            id="endDate"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-button">
+          <button type="submit">Xong</button>
+        </div>
+      </form>
+    </>
   );
 };
 

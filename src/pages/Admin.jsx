@@ -1,6 +1,5 @@
 // src/pages/Admin.jsx
 import React from "react";
-import "./Page.css";
 import "./CSS/Admin.css";
 import DeadlineForm from "../components/DeadlineForm/DeadlineForm.jsx";
 const Admin = () => {
@@ -32,10 +31,7 @@ const Admin = () => {
 
   return (
     <div className="admin-page">
-      <ul className="tools">
-        <li>Tạo Deadline</li>
-        <li>Tạo Tài Khoản</li>
-      </ul>
+      <h2>Tạo deadline </h2>
       <div className="tool-setup">
         <DeadlineForm onSubmit={handleSubmit} />
       </div>
