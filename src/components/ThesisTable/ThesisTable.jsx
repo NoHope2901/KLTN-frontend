@@ -14,6 +14,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(true);
   const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(true);
 
+<<<<<<< HEAD
   const fetchRegisteredThesis = async () => {
     try {
       const response = await fetch("http://localhost:3001/theses/registered", {
@@ -25,6 +26,24 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         const data = await response.json();
         if (data.registeredThesisId) {
           setRegisteredThesisId(data.registeredThesisId);
+=======
+  useEffect(() => {
+    const fetchRegisteredThesis = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/theses/registered",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data.registeredThesisId) {
+            setRegisteredThesisId(data.registeredThesisId);
+          }
+>>>>>>> 8201345f1c28830f0898bf566aa05f4a465e4d04
         }
       }
     } catch (error) {
@@ -68,13 +87,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
       }
@@ -86,13 +108,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       }
@@ -143,7 +168,11 @@ const ThesisTable = ({ theses, fetchTheses }) => {
             <td>
               {role === "student" ? (
                 registeredThesisId === thesis._id ? (
+<<<<<<< HEAD
                   <button onClick={() => handleUnregisterTopic(thesis._id)} disabled={!isStudentDeadlineActive}>
+=======
+                  <button onClick={() => handleUnregisterTopic(thesis._id)}>
+>>>>>>> 8201345f1c28830f0898bf566aa05f4a465e4d04
                     Hủy
                   </button>
                 ) : (
@@ -151,15 +180,21 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     onClick={() => handleRegisterTopic(thesis._id)}
                     disabled={
                       !!registeredThesisId ||
+<<<<<<< HEAD
                       thesis.members.length >= thesis.studentQuantity ||
                       !isStudentDeadlineActive
                     }
                   >
+=======
+                      thesis.members.length >= thesis.studentQuantity
+                    }>
+>>>>>>> 8201345f1c28830f0898bf566aa05f4a465e4d04
                     Đăng ký
                   </button>
                 )
               ) : (
                 <>
+<<<<<<< HEAD
                   <button disabled={!isTeacherDeadlineActive} onClick={() => handleDeleteTopic(thesis._id)}>
                     Xóa
                   </button>
@@ -185,6 +220,35 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       }}
                     />
                   )}
+=======
+                  <div>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      Xóa
+                    </button>
+                    <button
+                      onClick={() => {
+                        setEditThesisId(thesis._id);
+                        setShowForm(true);
+                      }}>
+                      Sửa
+                    </button>
+                    {showForm && editThesisId === thesis._id && (
+                      <EditThesisForm
+                        onClose={() => setShowForm(false)}
+                        fetchTheses={fetchTheses}
+                        id={thesis._id}
+                        data={{
+                          thesisName: thesis.thesisName,
+                          instructor: thesis.instructor,
+                          studentQuantity: thesis.studentQuantity,
+                          require: thesis.require,
+                        }}
+                      />
+                    )}
+                  </div>
+>>>>>>> 8201345f1c28830f0898bf566aa05f4a465e4d04
                 </>
               )}
             </td>

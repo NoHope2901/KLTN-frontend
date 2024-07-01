@@ -1,6 +1,5 @@
 // src/components/AddThesisForm.jsx
 import React, { useState, useEffect } from "react";
-import "./AddThesisForm.css";
 
 const AddThesisForm = ({ onClose, fetchTheses }) => {
   const [formData, setFormData] = useState({
@@ -52,42 +51,51 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
   };
 
   return (
-    <div className="form-overlay">
-      <div className="form-container">
-        <h2>Thêm Đề Tài</h2>
-        <form onSubmit={handleSubmit}>
-          <input
-            required
-            type="text"
-            name="thesisName"
-            placeholder="Tên đề tài"
-            value={formData.thesisName}
-            onChange={handleChange}
-          />
-
-          <input
-            required
-            type="number"
-            name="studentQuantity"
-            placeholder="Số lượng"
-            value={formData.studentQuantity}
-            onChange={handleChange}
-          />
-          <input
-            required
-            type="text"
-            name="require"
-            placeholder="Yêu cầu"
-            value={formData.require}
-            onChange={handleChange}
-          />
-          <button type="submit">Xong</button>
-          <button type="button" onClick={onClose}>
-            Hủy
-          </button>
-        </form>
+    <>
+      <div className="form-overlay">
+        <div className="form-container">
+          <h2 className="modal-title">Thêm Đề Tài</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                required
+                type="text"
+                name="thesisName"
+                placeholder="Tên đề tài"
+                value={formData.thesisName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                required
+                type="number"
+                name="studentQuantity"
+                placeholder="Số lượng"
+                value={formData.studentQuantity}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                required
+                type="text"
+                name="require"
+                placeholder="Yêu cầu"
+                value={formData.require}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-button">
+              <button type="submit">Đăng ký</button>
+              <button type="button" onClick={onClose}>
+                Hủy
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
