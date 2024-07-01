@@ -4,6 +4,7 @@ import "./Navbar.css";
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const role = localStorage.getItem("role");
   // const token = localStorage.getItem("token")
 
   // Kiểm tra nếu đường dẫn là /login thì không render Navbar
@@ -35,11 +36,13 @@ const Navbar = () => {
             Theses
           </Link>
         </li>
-        <li>
-          <Link style={{ textDecoration: "none" }} to="/admin">
-            Admin
-          </Link>
-        </li>
+        {role === "admin" && (
+          <li>
+            <Link style={{ textDecoration: "none" }} to="/admin">
+              Admin
+            </Link>
+          </li>
+        )}
       </ul>
       <div className="nav-logout">
         <Link to="/login">

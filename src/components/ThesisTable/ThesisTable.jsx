@@ -11,27 +11,59 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   const [registeredThesisId, setRegisteredThesisId] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editThesisId, setEditThesisId] = useState("");
+  const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(true);
+  const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(true);
 
-  useEffect(() => {
-    const fetchRegisteredThesis = async () => {
-      try {
-        const response = await fetch("http://localhost:3001/theses/registered", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        if (response.ok) {
-          const data = await response.json();
-          if (data.registeredThesisId) {
-            setRegisteredThesisId(data.registeredThesisId);
-          }
+  const fetchRegisteredThesis = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/theses/registered", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data.registeredThesisId) {
+          setRegisteredThesisId(data.registeredThesisId);
         }
-      } catch (error) {
-        console.error("Failed to fetch registered thesis", error);
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch registered thesis", error);
+    }
+  };
 
+  const fetchTeacherDeadline = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/deadlines/teacher", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        setIsTeacherDeadlineActive(false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch deadline", error);
+    }
+  };
+  const fetchStudentDeadline = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/deadlines/student", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        setIsStudentDeadlineActive(false);
+      }
+    } catch (error) {
+      console.error("Failed to fetch deadline", error);
+    }
+  };
+  useEffect(() => {
     fetchRegisteredThesis();
+    fetchTeacherDeadline();
+    fetchStudentDeadline();
   }, [token]);
 
   const handleRegisterTopic = async (id) => {
@@ -111,23 +143,32 @@ const ThesisTable = ({ theses, fetchTheses }) => {
             <td>
               {role === "student" ? (
                 registeredThesisId === thesis._id ? (
-                  <button onClick={() => handleUnregisterTopic(thesis._id)}>Hủy</button>
+                  <button onClick={() => handleUnregisterTopic(thesis._id)} disabled={!isStudentDeadlineActive}>
+                    Hủy
+                  </button>
                 ) : (
                   <button
                     onClick={() => handleRegisterTopic(thesis._id)}
-                    disabled={!!registeredThesisId || thesis.members.length >= thesis.studentQuantity}
+                    disabled={
+                      !!registeredThesisId ||
+                      thesis.members.length >= thesis.studentQuantity ||
+                      !isStudentDeadlineActive
+                    }
                   >
                     Đăng ký
                   </button>
                 )
               ) : (
                 <>
-                  <button onClick={() => handleDeleteTopic(thesis._id)}>Xóa</button>
+                  <button disabled={!isTeacherDeadlineActive} onClick={() => handleDeleteTopic(thesis._id)}>
+                    Xóa
+                  </button>
                   <button
                     onClick={() => {
                       setEditThesisId(thesis._id);
                       setShowForm(true);
                     }}
+                    disabled={!isTeacherDeadlineActive}
                   >
                     Sửa
                   </button>

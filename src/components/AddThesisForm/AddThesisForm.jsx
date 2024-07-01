@@ -31,7 +31,7 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/theses", {
+      const response = await fetch("http://localhost:3001/theses/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
