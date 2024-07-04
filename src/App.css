@@ -8,16 +8,19 @@ html {
 }
 
 .container {
-  display: flex;
+  /* display: flex; */
   height: 100vh;
+  width: 100vw;
 }
 
 .content {
+  padding: 20px;
   min-width: 80vw;
   width: 100%;
+  height: calc(100vh - 60px);
   box-sizing: border-box;
   overflow-y: auto;
-  background-color: #e0e0e0;
+  /* background-color: #e0e0e0; */
 }
 
 button {

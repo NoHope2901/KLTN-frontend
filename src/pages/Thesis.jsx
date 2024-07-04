@@ -30,8 +30,9 @@ const Thesis = () => {
   }, []);
 
   return (
+    <>
     <div className="thesis-page">
-      {role !== "student" && (
+      {role !== "student" || role !== "admin"  && (
         <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
           Thêm mới
         </button>
@@ -39,6 +40,7 @@ const Thesis = () => {
       {showForm && <AddThesisForm onClose={() => setShowForm(false)} fetchTheses={fetchTheses} />}
       <ThesisTable theses={theses} fetchTheses={fetchTheses} />
     </div>
+    </>
   );
 };
 

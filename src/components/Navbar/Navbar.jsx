@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 const Navbar = () => {
   const location = useLocation();
@@ -20,35 +20,51 @@ const Navbar = () => {
   };
   return (
     <div className="navbar">
-      <ul className="nav-menu">
-        <li>
-          <Link style={{ textDecoration: "none" }} to="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link style={{ textDecoration: "none" }} to="/notifications">
-            Notifications
-          </Link>
-        </li>
-        <li>
-          <Link style={{ textDecoration: "none" }} to="/theses">
-            Theses
-          </Link>
-        </li>
-        {role === "admin" && (
+      <nav>
+        <ul className="nav-menu">
           <li>
-            <Link style={{ textDecoration: "none" }} to="/admin">
-              Admin
-            </Link>
+            <NavLink
+              activeClassName="active"
+              style={{ textDecoration: "none" }}
+              to="/">
+              Home
+            </NavLink>
           </li>
-        )}
-      </ul>
-      <div className="nav-logout">
-        <Link to="/login">
-          <button onClick={handleLogout}>Logout</button>
-        </Link>
-      </div>
+          <li>
+            <NavLink
+              activeClassName="active"
+              style={{ textDecoration: "none" }}
+              to="/notifications">
+              Notifications
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              activeClassName="active"
+              style={{ textDecoration: "none" }}
+              to="/theses">
+              Theses
+            </NavLink>
+          </li>
+          {role === "admin" && (
+            <li>
+              <NavLink
+                activeClassName="active"
+                style={{ textDecoration: "none" }}
+                to="/admin">
+                Admin
+              </NavLink>
+            </li>
+          )}
+        </ul>
+        <div className="nav-logout">
+          {role !== "admin" && <p>{localStorage.getItem("fullname")}</p>}
+
+          <Link to="/login">
+            <button onClick={handleLogout}>Logout</button>
+          </Link>
+        </div>
+      </nav>
     </div>
   );
 };

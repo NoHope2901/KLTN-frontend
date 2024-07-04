@@ -1,36 +1,39 @@
 /* src/components/Navbar/Navbar.css */
 .navbar {
-  width: 20vw;
-  max-width: 300px;
-  min-width: 150px;
   background-color: #333;
   color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
+}
+
+.navbar > nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .nav-menu {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
-
-.nav-menu li {
-  margin: 10px 0;
-  padding-left: 20px;
+.nav-menu > li > .active {
+  background-color: #777;
+  border-radius: 6px;
 }
 .nav-menu li:hover {
   background-color: #777;
+  border-radius: 6px;
 }
 
 .nav-menu a {
   color: white;
   text-decoration: none;
-  padding: 10px 0;
   display: block;
+  padding: 8px;
 }
 
 .nav-menu a:hover {
@@ -52,4 +55,9 @@
 
 .nav-logout button:hover {
   background-color: #777;
+}
+.nav-logout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
