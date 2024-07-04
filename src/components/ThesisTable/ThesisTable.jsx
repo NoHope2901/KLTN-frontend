@@ -68,13 +68,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
       }
@@ -86,13 +89,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       }
@@ -143,7 +149,9 @@ const ThesisTable = ({ theses, fetchTheses }) => {
             <td>
               {role === "student" ? (
                 registeredThesisId === thesis._id ? (
-                  <button onClick={() => handleUnregisterTopic(thesis._id)} disabled={!isStudentDeadlineActive}>
+                  <button
+                    onClick={() => handleUnregisterTopic(thesis._id)}
+                    disabled={!isStudentDeadlineActive}>
                     Hủy
                   </button>
                 ) : (
@@ -153,38 +161,52 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       !!registeredThesisId ||
                       thesis.members.length >= thesis.studentQuantity ||
                       !isStudentDeadlineActive
-                    }
-                  >
+                    }>
                     Đăng ký
                   </button>
                 )
+              ) : role === "teacher" ? (
+                <p>
+                  <>
+                    <button
+                      // disabled={!isTeacherDeadlineActive}
+                      className="btn-delete"
+                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      Xóa
+                    </button>
+                    <button
+                      style={{ marginLeft: "8px" }}
+                      onClick={() => {
+                        setEditThesisId(thesis._id);
+                        setShowForm(true);
+                      }}
+                      // disabled={!isTeacherDeadlineActive}
+                    >
+                      Sửa
+                    </button>
+                    {showForm && editThesisId === thesis._id && (
+                      <EditThesisForm
+                        onClose={() => setShowForm(false)}
+                        fetchTheses={fetchTheses}
+                        id={thesis._id}
+                        data={{
+                          thesisName: thesis.thesisName,
+                          instructor: thesis.instructor,
+                          studentQuantity: thesis.studentQuantity,
+                          require: thesis.require,
+                        }}
+                      />
+                    )}
+                  </>
+                </p>
               ) : (
                 <>
-                  <button disabled={!isTeacherDeadlineActive} onClick={() => handleDeleteTopic(thesis._id)}>
-                    Xóa
-                  </button>
+                  <button disabled={!isTeacherDeadlineActive}>Xóa</button>
                   <button
-                    onClick={() => {
-                      setEditThesisId(thesis._id);
-                      setShowForm(true);
-                    }}
-                    disabled={!isTeacherDeadlineActive}
-                  >
+                    style={{ marginLeft: "8px" }}
+                    disabled={!isTeacherDeadlineActive}>
                     Sửa
                   </button>
-                  {showForm && editThesisId === thesis._id && (
-                    <EditThesisForm
-                      onClose={() => setShowForm(false)}
-                      fetchTheses={fetchTheses}
-                      id={thesis._id}
-                      data={{
-                        thesisName: thesis.thesisName,
-                        instructor: thesis.instructor,
-                        studentQuantity: thesis.studentQuantity,
-                        require: thesis.require,
-                      }}
-                    />
-                  )}
                 </>
               )}
             </td>

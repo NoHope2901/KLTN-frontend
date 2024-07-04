@@ -31,15 +31,20 @@ const Thesis = () => {
 
   return (
     <>
-    <div className="thesis-page">
-      {role !== "student" || role !== "admin"  && (
-        <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
-          Thêm mới
-        </button>
-      )}
-      {showForm && <AddThesisForm onClose={() => setShowForm(false)} fetchTheses={fetchTheses} />}
-      <ThesisTable theses={theses} fetchTheses={fetchTheses} />
-    </div>
+      <div className="thesis-page">
+        {role === "teacher" && (
+          <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
+            Thêm mới
+          </button>
+        )}
+        {showForm && (
+          <AddThesisForm
+            onClose={() => setShowForm(false)}
+            fetchTheses={fetchTheses}
+          />
+        )}
+        <ThesisTable theses={theses} fetchTheses={fetchTheses} />
+      </div>
     </>
   );
 };

@@ -46,11 +46,11 @@ button[disabled]:hover {
 }
 
 .btn-delete {
-  background-color: rgb(245, 52, 52);
+  background-color: rgb(211, 47, 47);
 }
 
 .btn-delete:hover {
-  background-color: rgb(210, 35, 35);
+  background-color: rgb(180, 36, 36);
 }
 
 label {

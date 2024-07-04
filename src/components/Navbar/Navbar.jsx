@@ -30,14 +30,16 @@ const Navbar = () => {
               Home
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              activeClassName="active"
-              style={{ textDecoration: "none" }}
-              to="/notifications">
-              Notifications
-            </NavLink>
-          </li>
+          {role !== "admin" && (
+            <li>
+              <NavLink
+                activeClassName="active"
+                style={{ textDecoration: "none" }}
+                to="/notifications">
+                Notifications
+              </NavLink>
+            </li>
+          )}
           <li>
             <NavLink
               activeClassName="active"
@@ -58,7 +60,12 @@ const Navbar = () => {
           )}
         </ul>
         <div className="nav-logout">
-          {role !== "admin" && <p>{localStorage.getItem("fullname")}</p>}
+          {role !== "admin" && (
+            <p>
+              {localStorage.getItem("fullname")} -{" "}
+              {localStorage.getItem("code")}
+            </p>
+          )}
 
           <Link to="/login">
             <button onClick={handleLogout}>Logout</button>
