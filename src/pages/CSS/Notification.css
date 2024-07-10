@@ -9,11 +9,11 @@
   height: 100%;
   padding: 0;
   border-right: 1px solid gray;
-  overflow: hidden;
+  overflow: scroll;
 }
 .notification-list li {
   list-style-type: none;
-  width: 100%;
+  width: 95%;
   border-bottom: 1px solid rgb(189, 189, 189);
   overflow: hidden;
   height: 35px;
@@ -47,4 +47,9 @@
   border: 1px solid rgb(188, 188, 188);
   padding: 10px 20px;
   border-radius: 10px;
+}
+
+.delete-notif {
+  width: 500px;
+  height: 50px;
 }
