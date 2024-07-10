@@ -2,26 +2,27 @@
 import React, { useEffect, useState } from "react";
 import ShowThesisTable from "../components/ShowThesisTable/ShowThesisTable";
 const Home = () => {
-  const [theses, setTheses] = useState([]);
+  const [data, setData] = useState([]);
   // const role = localStorage.getItem("role");
 
-  const fetchTheses = async () => {
+  const fetchHomeData = async () => {
     try {
-      const response = await fetch("http://localhost:3001/theses");
-      const data = await response.json();
-      setTheses(data);
+      const response = await fetch("http://localhost:3001/api");
+      const dataResponse = await response.json();
+      console.log("data là ", dataResponse);
+      setData(dataResponse);
     } catch (error) {
-      console.error("Failed to fetch theses", error);
+      console.error("Failed to fetch data", error);
     }
   };
 
   useEffect(() => {
-    fetchTheses();
+    fetchHomeData();
   }, []);
 
   return (
     <div className="page">
-      <ShowThesisTable theses={theses} fetchTheses={fetchTheses} />
+      <ShowThesisTable data={data} />
     </div>
   );
 };

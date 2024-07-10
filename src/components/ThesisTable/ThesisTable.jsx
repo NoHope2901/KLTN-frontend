@@ -11,8 +11,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   const [registeredThesisId, setRegisteredThesisId] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [editThesisId, setEditThesisId] = useState("");
-  const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(true);
-  const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(true);
+  const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
+  const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false);
 
   const fetchRegisteredThesis = async () => {
     try {
@@ -39,7 +39,9 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (!response.ok) {
+      if (response.ok) {
+        setIsTeacherDeadlineActive(true);
+      } else {
         setIsTeacherDeadlineActive(false);
       }
     } catch (error) {
@@ -53,13 +55,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (!response.ok) {
+      if (response.ok) {
+        setIsStudentDeadlineActive(true);
+      } else {
         setIsStudentDeadlineActive(false);
       }
     } catch (error) {
       console.error("Failed to fetch deadline", error);
     }
   };
+
   useEffect(() => {
     fetchRegisteredThesis();
     fetchTeacherDeadline();
@@ -77,6 +82,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       });
       if (response.ok) {
         setRegisteredThesisId(id);
+      } else {
+        alert("Thời hạn đăng ký đã hết hoặc chưa tới");
       }
       fetchTheses();
     } catch (error) {
@@ -95,6 +102,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       });
       if (response.ok) {
         setRegisteredThesisId("");
+      } else {
+        alert("Thời hạn đăng ký đã hết hoặc chưa tới");
       }
       fetchTheses();
     } catch (error) {
@@ -121,6 +130,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       <thead>
         <tr>
           <th>STT</th>
+          <th>Kỳ</th>
+          <th>Năm</th>
           <th>GVHD</th>
           <th>MÃ GV</th>
           <th>SĐT GV</th>
@@ -134,6 +145,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         {theses.map((thesis, index) => (
           <tr key={thesis._id}>
             <td>{index + 1}</td>
+            <td>{thesis.semester}</td>
+            <td>{thesis.year}</td>
             <td>{thesis.instructorName}</td>
             <td>{thesis.instructorCode}</td>
             <td>{thesis.instructorPhone}</td>
@@ -158,33 +171,47 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     Đăng ký
                   </button>
                 )
+              ) : role === "teacher" ? (
+                <p>
+                  <>
+                    <button
+                      disabled={!isTeacherDeadlineActive}
+                      className="btn-delete"
+                      onClick={() => handleDeleteTopic(thesis._id)}
+                    >
+                      Xóa
+                    </button>
+                    <button
+                      style={{ marginLeft: "8px" }}
+                      onClick={() => {
+                        setEditThesisId(thesis._id);
+                        setShowForm(true);
+                      }}
+                      disabled={!isTeacherDeadlineActive}
+                    >
+                      Sửa
+                    </button>
+                    {showForm && editThesisId === thesis._id && (
+                      <EditThesisForm
+                        onClose={() => setShowForm(false)}
+                        fetchTheses={fetchTheses}
+                        id={thesis._id}
+                        data={{
+                          thesisName: thesis.thesisName,
+                          instructor: thesis.instructor,
+                          studentQuantity: thesis.studentQuantity,
+                          require: thesis.require,
+                        }}
+                      />
+                    )}
+                  </>
+                </p>
               ) : (
                 <>
-                  <button disabled={!isTeacherDeadlineActive} onClick={() => handleDeleteTopic(thesis._id)}>
-                    Xóa
-                  </button>
-                  <button
-                    onClick={() => {
-                      setEditThesisId(thesis._id);
-                      setShowForm(true);
-                    }}
-                    disabled={!isTeacherDeadlineActive}
-                  >
+                  <button disabled={!isTeacherDeadlineActive}>Xóa</button>
+                  <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
                     Sửa
                   </button>
-                  {showForm && editThesisId === thesis._id && (
-                    <EditThesisForm
-                      onClose={() => setShowForm(false)}
-                      fetchTheses={fetchTheses}
-                      id={thesis._id}
-                      data={{
-                        thesisName: thesis.thesisName,
-                        instructor: thesis.instructor,
-                        studentQuantity: thesis.studentQuantity,
-                        require: thesis.require,
-                      }}
-                    />
-                  )}
                 </>
               )}
             </td>

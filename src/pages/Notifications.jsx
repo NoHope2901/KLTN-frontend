@@ -25,20 +25,15 @@ const Notifications = () => {
 
   const handleReadNotification = async (id) => {
     try {
-      await fetch(`http://localhost:3001/notifications/${id}`, {
+      const response = await fetch(`http://localhost:3001/notifications/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // const data = await response.json();
-      // setNotifications(data);
-
-      // Cập nhật trạng thái của thông báo trong mảng notifications
-      // setNotifications((prevNotifications) =>
-      //   prevNotifications.map((notif) => (notif._id === id ? { ...notif, isRead: true } : notif))
-      // );
-      // getNotification();
+      // if (response.ok) {
+      //   getNotification();
+      // }
     } catch (error) {
       console.error("Failed to mark notification as read", error);
     }
@@ -57,7 +52,7 @@ const Notifications = () => {
 
   useEffect(() => {
     getNotification();
-  }, [readNotif]);
+  }, []);
 
   return (
     <div className="notification">
@@ -66,11 +61,9 @@ const Notifications = () => {
           <li
             key={notif._id}
             onClick={() => {
+              notif.isRead = true;
               setMessage(notif.message);
-
               handleReadNotification(notif._id);
-              setReadNotif(notif._id);
-              // getNotification();
             }}
             className={notif.isRead ? "" : "bold"}
           >

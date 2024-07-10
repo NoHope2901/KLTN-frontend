@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 
 const AddThesisForm = ({ onClose, fetchTheses }) => {
   const [formData, setFormData] = useState({
+    semester: "",
+    year: "",
     thesisName: "",
-    studentQuantity: 1,
+    studentQuantity: "",
     require: "",
   });
 
@@ -22,7 +24,7 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: name === "studentQuantity" ? parseInt(value, 10) : value,
+      [name]: value,
     }));
   };
 
@@ -43,7 +45,7 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
         onClose();
       } else {
         const errorText = await response.text();
-        console.error("Failed to add thesis", errorText);
+        alert(errorText);
       }
     } catch (error) {
       console.error("Failed to add thesis", error);
@@ -56,6 +58,26 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
         <div className="form-container">
           <h2 className="modal-title">Thêm Đề Tài</h2>
           <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                required
+                type="text"
+                name="semester"
+                placeholder="Học kỳ: 1, 2, 3,..."
+                value={formData.semester}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                required
+                type="text"
+                name="year"
+                placeholder="Năm học"
+                value={formData.year}
+                onChange={handleChange}
+              />
+            </div>
             <div className="form-group">
               <input
                 required

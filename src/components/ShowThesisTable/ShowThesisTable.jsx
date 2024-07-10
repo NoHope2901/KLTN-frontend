@@ -2,7 +2,8 @@
 import React from "react";
 import "./ShowThesisTable.css";
 
-const ShowThesisTable = ({ theses }) => {
+const ShowThesisTable = ({ data }) => {
+  const role = localStorage.getItem("role");
   return (
     <table className="thesis-table">
       <thead>
@@ -29,16 +30,25 @@ const ShowThesisTable = ({ theses }) => {
         </tr>
       </thead>
       <tbody>
-        {theses.map((thesis, index) => (
-          <tr key={thesis._id}>
+        {data.map((dt, index) => (
+          <tr key={dt._id}>
             <td>{index + 1}</td>
-            <td>{thesis.name}</td>
-            <td>{thesis.instructor}</td>
-            <td>{thesis.author}</td>
-            <td>{thesis.thesisName}</td>
-            <td>{thesis.studentQuantity}</td>
-            <td>{thesis.require}</td>
-            {/* Hiển thị các cột khác */}
+            <td>{dt.ky}</td>
+            <td>{dt.nam}</td>
+            <td>{dt.msv}</td>
+            <td>{dt.hd}</td>
+            <td>{dt.t}</td>
+            <td>{dt.ns}</td>
+            <td>{dt.lcn}</td>
+            <td>{dt.ns}</td>
+            <td>{dt.tdt}</td>
+            <td>{dt.gvhd}</td>
+            <td>{dt.ct}</td>
+            <td>{dt.pb}</td>
+            <td>{dt.ng}</td>
+            <td>{dt.d}</td>
+            <td>{dt.gh}</td>
+            <td>{dt.tt}</td>
           </tr>
         ))}
       </tbody>
