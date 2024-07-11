@@ -18,47 +18,63 @@ const Navbar = () => {
     navigate("/login");
   };
   return (
-    <div className="navbar">
-      <nav>
-        <ul className="nav-menu">
-          <li>
-            <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/">
-              Home
-            </NavLink>
-          </li>
-          {role !== "admin" && (
+    <>
+      <div className="navbar">
+        <nav>
+          <ul className="nav-menu">
             <li>
-              <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/notifications">
-                Notifications
+              <NavLink
+                activeClassName="active"
+                style={{ textDecoration: "none" }}
+                to="/">
+                Home
               </NavLink>
             </li>
-          )}
-          <li>
-            <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/theses">
-              Theses
-            </NavLink>
-          </li>
-          {role === "admin" && (
+            {role !== "admin" && (
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  style={{ textDecoration: "none" }}
+                  to="/notifications">
+                  Notifications
+                </NavLink>
+              </li>
+            )}
             <li>
-              <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/admin">
-                Admin
+              <NavLink
+                activeClassName="active"
+                style={{ textDecoration: "none" }}
+                to="/theses">
+                Theses
               </NavLink>
             </li>
-          )}
-        </ul>
-        <div className="nav-logout">
-          {role !== "admin" && (
-            <p>
-              {localStorage.getItem("fullname")} - {localStorage.getItem("code")}
-            </p>
-          )}
+            {role === "admin" && (
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  style={{ textDecoration: "none" }}
+                  to="/admin">
+                  Admin
+                </NavLink>
+              </li>
+            )}
+          </ul>
+          <div className="nav-logout">
+            <img src={require("../images/no-avt.png")} alt="" />
+            {role !== "admin" && (
+              <p>
+                {localStorage.getItem("fullname")} -{" "}
+                {localStorage.getItem("code")}
+              </p>
+            )}
 
-          <Link to="/login">
-            <button onClick={handleLogout}>Logout</button>
-          </Link>
-        </div>
-      </nav>
-    </div>
+            <Link to="/login">
+              <button onClick={handleLogout}>Logout</button>
+            </Link>
+          </div>
+        </nav>
+      </div>
+    </>
   );
 };
 

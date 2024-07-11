@@ -73,13 +73,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
       } else {
@@ -93,13 +96,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -126,99 +132,102 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   };
 
   return (
-    <table className="thesis-table">
-      <thead>
-        <tr>
-          <th>STT</th>
-          <th>Kỳ</th>
-          <th>Năm</th>
-          <th>GVHD</th>
-          <th>MÃ GV</th>
-          <th>SĐT GV</th>
-          <th>TÊN ĐỀ TÀI</th>
-          <th>SỐ LƯỢNG</th>
-          <th>YÊU CẦU</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {theses.map((thesis, index) => (
-          <tr key={thesis._id}>
-            <td>{index + 1}</td>
-            <td>{thesis.semester}</td>
-            <td>{thesis.year}</td>
-            <td>{thesis.instructorName}</td>
-            <td>{thesis.instructorCode}</td>
-            <td>{thesis.instructorPhone}</td>
-            <td>{thesis.thesisName}</td>
-            <td>{thesis.members.length + "/" + thesis.studentQuantity}</td>
-            <td>{thesis.require}</td>
-            <td>
-              {role === "student" ? (
-                registeredThesisId === thesis._id ? (
-                  <button onClick={() => handleUnregisterTopic(thesis._id)} disabled={!isStudentDeadlineActive}>
-                    Hủy
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleRegisterTopic(thesis._id)}
-                    disabled={
-                      !!registeredThesisId ||
-                      thesis.members.length >= thesis.studentQuantity ||
-                      !isStudentDeadlineActive
-                    }
-                  >
-                    Đăng ký
-                  </button>
-                )
-              ) : role === "teacher" ? (
-                <p>
-                  <>
+    <>
+      <table className="thesis-table">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Kỳ</th>
+            <th>Năm</th>
+            <th>GVHD</th>
+            <th>MÃ GV</th>
+            <th>SĐT GV</th>
+            <th>TÊN ĐỀ TÀI</th>
+            <th>SỐ LƯỢNG</th>
+            <th>YÊU CẦU</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {theses.map((thesis, index) => (
+            <tr key={thesis._id}>
+              <td>{index + 1}</td>
+              <td>{thesis.semester}</td>
+              <td>{thesis.year}</td>
+              <td>{thesis.instructorName}</td>
+              <td>{thesis.instructorCode}</td>
+              <td>{thesis.instructorPhone}</td>
+              <td>{thesis.thesisName}</td>
+              <td>{thesis.members.length + "/" + thesis.studentQuantity}</td>
+              <td>{thesis.require}</td>
+              <td>
+                {role === "student" ? (
+                  registeredThesisId === thesis._id ? (
                     <button
-                      disabled={!isTeacherDeadlineActive}
-                      className="btn-delete"
-                      onClick={() => handleDeleteTopic(thesis._id)}
-                    >
-                      Xóa
+                      onClick={() => handleUnregisterTopic(thesis._id)}
+                      disabled={!isStudentDeadlineActive}>
+                      Hủy
                     </button>
+                  ) : (
+                    <button
+                      onClick={() => handleRegisterTopic(thesis._id)}
+                      disabled={
+                        !!registeredThesisId ||
+                        thesis.members.length >= thesis.studentQuantity ||
+                        !isStudentDeadlineActive
+                      }>
+                      Đăng ký
+                    </button>
+                  )
+                ) : role === "teacher" ? (
+                  <p>
+                    <>
+                      <button
+                        disabled={!isTeacherDeadlineActive}
+                        className="btn-delete"
+                        onClick={() => handleDeleteTopic(thesis._id)}>
+                        Xóa
+                      </button>
+                      <button
+                        style={{ marginLeft: "8px" }}
+                        onClick={() => {
+                          setEditThesisId(thesis._id);
+                          setShowForm(true);
+                        }}
+                        disabled={!isTeacherDeadlineActive}>
+                        Sửa
+                      </button>
+                      {showForm && editThesisId === thesis._id && (
+                        <EditThesisForm
+                          onClose={() => setShowForm(false)}
+                          fetchTheses={fetchTheses}
+                          id={thesis._id}
+                          data={{
+                            thesisName: thesis.thesisName,
+                            instructor: thesis.instructor,
+                            studentQuantity: thesis.studentQuantity,
+                            require: thesis.require,
+                          }}
+                        />
+                      )}
+                    </>
+                  </p>
+                ) : (
+                  <>
+                    <button disabled={!isTeacherDeadlineActive}>Xóa</button>
                     <button
                       style={{ marginLeft: "8px" }}
-                      onClick={() => {
-                        setEditThesisId(thesis._id);
-                        setShowForm(true);
-                      }}
-                      disabled={!isTeacherDeadlineActive}
-                    >
+                      disabled={!isTeacherDeadlineActive}>
                       Sửa
                     </button>
-                    {showForm && editThesisId === thesis._id && (
-                      <EditThesisForm
-                        onClose={() => setShowForm(false)}
-                        fetchTheses={fetchTheses}
-                        id={thesis._id}
-                        data={{
-                          thesisName: thesis.thesisName,
-                          instructor: thesis.instructor,
-                          studentQuantity: thesis.studentQuantity,
-                          require: thesis.require,
-                        }}
-                      />
-                    )}
                   </>
-                </p>
-              ) : (
-                <>
-                  <button disabled={!isTeacherDeadlineActive}>Xóa</button>
-                  <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
-                    Sửa
-                  </button>
-                </>
-              )}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

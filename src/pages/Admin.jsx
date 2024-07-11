@@ -30,12 +30,14 @@ const Admin = () => {
   };
 
   return (
-    <div className="admin-page">
-      <h2>Tạo deadline </h2>
-      <div className="tool-setup">
-        <DeadlineForm onSubmit={handleSubmit} />
+    <>
+      <div className="admin-page">
+        <h2>Tạo deadline </h2>
+        <div className="tool-setup">
+          <DeadlineForm onSubmit={handleSubmit} />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

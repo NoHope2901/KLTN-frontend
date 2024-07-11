@@ -21,9 +21,11 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="page">
-      <ShowThesisTable data={data} />
-    </div>
+    <>
+      <div className="page">
+        <ShowThesisTable data={data} />
+      </div>
+    </>
   );
 };
 

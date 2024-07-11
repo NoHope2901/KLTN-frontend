@@ -52,60 +52,62 @@ const EditThesisForm = ({ onClose, fetchTheses, id, data }) => {
   };
 
   return (
-    <div className="form-overlay">
-      <div className="form-container">
-        <h2 className="modal-title">Sửa Đề Tài</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            {" "}
-            <input
-              required
-              type="text"
-              name="thesisName"
-              placeholder="Tên đề tài"
-              value={formData.thesisName}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              required
-              type="text"
-              name="instructor"
-              placeholder="Người hướng dẫn"
-              value={formData.instructor}
-              readOnly
-            />
-          </div>
-          <div className="form-group">
-            <input
-              required
-              type="number"
-              name="studentQuantity"
-              placeholder="Số lượng"
-              value={formData.studentQuantity}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              required
-              type="text"
-              name="require"
-              placeholder="Yêu cầu"
-              value={formData.require}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-button">
-            <button type="submit">Xong</button>
-            <button type="button" onClick={onClose}>
-              Hủy
-            </button>
-          </div>
-        </form>
+    <>
+      <div className="form-overlay">
+        <div className="form-container">
+          <h2 className="modal-title">Sửa Đề Tài</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              {" "}
+              <input
+                required
+                type="text"
+                name="thesisName"
+                placeholder="Tên đề tài"
+                value={formData.thesisName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                required
+                type="text"
+                name="instructor"
+                placeholder="Người hướng dẫn"
+                value={formData.instructor}
+                readOnly
+              />
+            </div>
+            <div className="form-group">
+              <input
+                required
+                type="number"
+                name="studentQuantity"
+                placeholder="Số lượng"
+                value={formData.studentQuantity}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                required
+                type="text"
+                name="require"
+                placeholder="Yêu cầu"
+                value={formData.require}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-button">
+              <button type="submit">Xong</button>
+              <button type="button" onClick={onClose}>
+                Hủy
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

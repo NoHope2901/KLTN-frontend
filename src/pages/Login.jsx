@@ -40,35 +40,37 @@ const Login = () => {
   };
 
   return (
-    <div className="container-lg">
-      <div className="login-container">
-        <h2 className="login-title">Đăng nhập</h2>
-        <form onSubmit={handleLogin} className="form">
-          <div className="form-group">
-            <label>Tên đăng nhập:</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label>Mật khẩu:</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          {error && <p className="error-message">{error}</p>}
-          <div className="form-button">
-            <button type="submit">Đăng nhập</button>
-          </div>
-        </form>
+    <>
+      <div className="container-lg">
+        <div className="login-container">
+          <h2 className="login-title">Đăng nhập</h2>
+          <form onSubmit={handleLogin} className="form">
+            <div className="form-group">
+              <label>Tên đăng nhập:</label>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label>Mật khẩu:</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            {error && <p className="error-message">{error}</p>}
+            <div className="form-button">
+              <button type="submit">Đăng nhập</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

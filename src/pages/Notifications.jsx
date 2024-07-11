@@ -25,12 +25,15 @@ const Notifications = () => {
 
   const handleReadNotification = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/notifications/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/notifications/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       // if (response.ok) {
       //   getNotification();
       // }
@@ -40,12 +43,15 @@ const Notifications = () => {
   };
   const handleDeleteNotification = async () => {
     try {
-      const response = await fetch("http://localhost:3001/notifications/delete", {
-        method: "Delete",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "http://localhost:3001/notifications/delete",
+        {
+          method: "Delete",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       getNotification();
     } catch (error) {}
   };
@@ -55,27 +61,32 @@ const Notifications = () => {
   }, []);
 
   return (
-    <div className="notification">
-      <ul className="notification-list">
-        {notifications.map((notif) => (
-          <li
-            key={notif._id}
-            onClick={() => {
-              notif.isRead = true;
-              setMessage(notif.message);
-              handleReadNotification(notif._id);
-            }}
-            className={notif.isRead ? "" : "bold"}
-          >
-            {notif.message}
-          </li>
-        ))}
-      </ul>
-      <button className="delete-notif" onClick={() => handleDeleteNotification()}>
-        Xóa Thông báo đã đọc
-      </button>
-      <div className="notification-content">{message && <div className="show-content">{message}</div>}</div>
-    </div>
+    <>
+      <div className="notification">
+        <ul className="notification-list">
+          {notifications.map((notif) => (
+            <li
+              key={notif._id}
+              onClick={() => {
+                notif.isRead = true;
+                setMessage(notif.message);
+                handleReadNotification(notif._id);
+              }}
+              className={notif.isRead ? "" : "bold"}>
+              {notif.message}
+            </li>
+          ))}
+        </ul>
+        <button
+          className="delete-notif"
+          onClick={() => handleDeleteNotification()}>
+          Xóa Thông báo đã đọc
+        </button>
+        <div className="notification-content">
+          {message && <div className="show-content">{message}</div>}
+        </div>
+      </div>
+    </>
   );
 };
 

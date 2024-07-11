@@ -58,16 +58,23 @@ const Thesis = () => {
   }, []);
 
   return (
-    <div className="thesis-page">
-      {role !== "student" && (
-        <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
-          Thêm mới
-        </button>
-      )}
-      <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
-      {showForm && <AddThesisForm onClose={() => setShowForm(false)} fetchTheses={fetchTheses} />}
-      <ThesisTable theses={theses} fetchTheses={fetchTheses} />
-    </div>
+    <>
+      <div className="thesis-page">
+        {role !== "student" && (
+          <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
+            Thêm mới
+          </button>
+        )}
+        <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
+        {showForm && (
+          <AddThesisForm
+            onClose={() => setShowForm(false)}
+            fetchTheses={fetchTheses}
+          />
+        )}
+        <ThesisTable theses={theses} fetchTheses={fetchTheses} />
+      </div>
+    </>
   );
 };
 
