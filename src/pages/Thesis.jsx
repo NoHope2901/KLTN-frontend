@@ -8,6 +8,8 @@ const Thesis = () => {
   const [showForm, setShowForm] = useState(false);
   const [theses, setTheses] = useState([]);
   const [deadline, setDeadline] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
 
@@ -57,6 +59,19 @@ const Thesis = () => {
     fetchDeadline();
   }, []);
 
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const filteredTheses = theses.filter(
+    (item) =>
+      item.instructorName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.thesisName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.instructorCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.require.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.year.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <div className="thesis-page">
@@ -65,14 +80,15 @@ const Thesis = () => {
             Thêm mới
           </button>
         )}
+        <input
+          type="text"
+          placeholder="Tìm Tên gv, Mã gv, Tên đề tài, Yêu cầu"
+          value={searchTerm}
+          onChange={handleSearchChange}
+        />
         <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
-        {showForm && (
-          <AddThesisForm
-            onClose={() => setShowForm(false)}
-            fetchTheses={fetchTheses}
-          />
-        )}
-        <ThesisTable theses={theses} fetchTheses={fetchTheses} />
+        {showForm && <AddThesisForm onClose={() => setShowForm(false)} fetchTheses={fetchTheses} />}
+        <ThesisTable theses={filteredTheses} fetchTheses={fetchTheses} />
       </div>
     </>
   );

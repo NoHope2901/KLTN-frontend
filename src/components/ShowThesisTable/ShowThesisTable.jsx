@@ -41,8 +41,6 @@ const ShowThesisTable = ({ data }) => {
             <th>Điểm</th>
             <th>Gia Hạn</th>
             <th>Trạng Thái</th>
-
-            {/* Thêm các cột khác */}
           </tr>
         </thead>
         <tbody>

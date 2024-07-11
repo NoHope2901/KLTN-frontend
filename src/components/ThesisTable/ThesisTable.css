@@ -22,7 +22,8 @@ button {
 
 .pagination {
   position: fixed;
-  bottom: 100px;
+  bottom: 50px;
+  right: 50px;
 }
 .pagination > button {
   margin: 5px 15px;

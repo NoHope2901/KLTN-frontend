@@ -182,7 +182,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       onClick={() => handleRegisterTopic(thesis._id)}
                       disabled={
                         !!registeredThesisId ||
-                        thesis.members.length >= thesis.studentQuantity ||
+                        // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
                       }
                     >
