@@ -27,7 +27,9 @@ const RegisteredStudent = () => {
     try {
       let updatedData = [...data];
 
-      updatedData[index].members = updatedData[index].members.filter((mbId) => mbId !== memberId);
+      updatedData[index].members = updatedData[index].members.filter(
+        (mbId) => mbId !== memberId
+      );
 
       setData(updatedData);
 
@@ -44,14 +46,17 @@ const RegisteredStudent = () => {
         throw new Error("Token is missing. Please log in again.");
       }
 
-      const response = await fetch(`http://localhost:3001/theses/deletemember/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deleteCode: memberId }),
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/deletemember/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ deleteCode: memberId }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to delete member. Please try again.");
       }
@@ -65,12 +70,15 @@ const RegisteredStudent = () => {
       if (!token) {
         throw new Error("Token is missing. Please log in again.");
       }
-      const response = await fetch("http://localhost:3001/theses/getbyteachercode", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        "http://localhost:3001/theses/getbyteachercode",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const receivedData = await response.json();
 
       setData(receivedData);
@@ -114,17 +122,21 @@ const RegisteredStudent = () => {
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Trang trước
-        </button>
-        <span>
-          Trang {currentPage} / {totalPages}
-        </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          Trang sau
-        </button>
-      </div>
+      {data.length > 10 && (
+        <div className="pagination">
+          <button onClick={handlePrevPage} disabled={currentPage === 1}>
+            Trang trước
+          </button>
+          <span>
+            Trang {currentPage} / {totalPages}
+          </span>
+          <button
+            onClick={handleNextPage}
+            disabled={currentPage === totalPages}>
+            Trang sau
+          </button>
+        </div>
+      )}
     </>
   );
 };

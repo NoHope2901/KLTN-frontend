@@ -63,31 +63,34 @@ const Thesis = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredTheses = theses.filter(
-    (item) =>
-      item.instructorName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.thesisName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.instructorCode.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.require.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.year.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredTheses = theses.filter((item) =>
+    item.instructorName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <>
       <div className="thesis-page">
-        {role !== "student" && (
+        {role === "teacher" && (
           <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
             Thêm mới
           </button>
         )}
         <input
           type="text"
-          placeholder="Tìm Tên gv, Mã gv, Tên đề tài, Yêu cầu"
+          placeholder="Tìm theo tên giáo viên ... "
           value={searchTerm}
           onChange={handleSearchChange}
         />
-        <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
-        {showForm && <AddThesisForm onClose={() => setShowForm(false)} fetchTheses={fetchTheses} />}
+        {deadline && (
+          <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
+        )}
+
+        {showForm && (
+          <AddThesisForm
+            onClose={() => setShowForm(false)}
+            fetchTheses={fetchTheses}
+          />
+        )}
         <ThesisTable theses={filteredTheses} fetchTheses={fetchTheses} />
       </div>
     </>

@@ -1,6 +1,7 @@
 .thesis-table {
   width: 100%;
   border-collapse: collapse;
+  margin-top: 20px;
 }
 
 .thesis-table th,
@@ -21,9 +22,11 @@ button {
 }
 
 .pagination {
-  position: fixed;
-  bottom: 50px;
-  right: 50px;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
 }
 .pagination > button {
   margin: 5px 15px;
