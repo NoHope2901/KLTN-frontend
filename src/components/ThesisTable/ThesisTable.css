@@ -20,14 +20,3 @@ button[disabled] {
 button {
   margin-top: 2px;
 }
-
-.pagination {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 20px;
-}
-.pagination > button {
-  margin: 5px 15px;
-}

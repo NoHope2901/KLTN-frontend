@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import "./ThesisTable.css";
 import EditThesisForm from "../EditThesisForm/EditThesisForm";
+import ModalAction from "../ModalAction/ModalAction";
+import Pagination from "../Pagination/Pagination";
 
 const ThesisTable = ({ theses, fetchTheses }) => {
   const role = localStorage.getItem("role");
@@ -10,6 +12,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   // Lưu trữ ID của đề tài đã đăng ký
   const [registeredThesisId, setRegisteredThesisId] = useState("");
   const [showForm, setShowForm] = useState(false);
+  // const [showModalDelete, setShowModalDelete] = useState(false);
   const [editThesisId, setEditThesisId] = useState("");
   const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
   const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false);
@@ -90,13 +93,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
       } else {
@@ -110,13 +116,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -141,6 +150,10 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       console.error("Failed to delete thesis", error);
     }
   };
+
+  // const handleOpenModal = (id) => {
+  //   setShowModalDelete(true);
+  // };
 
   return (
     <>
@@ -174,7 +187,10 @@ const ThesisTable = ({ theses, fetchTheses }) => {
               <td>
                 {role === "student" ? (
                   registeredThesisId === thesis._id ? (
-                    <button onClick={() => handleUnregisterTopic(thesis._id)} disabled={!isStudentDeadlineActive}>
+                    <button
+                      onClick={() => handleUnregisterTopic(thesis._id)}
+                      // onClick={handleOpenModal(thesis._id)}
+                      disabled={!isStudentDeadlineActive}>
                       Hủy
                     </button>
                   ) : (
@@ -184,70 +200,74 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }
-                    >
+                      }>
                       Đăng ký
                     </button>
                   )
                 ) : role === "teacher" ? (
-                  <p>
-                    <>
-                      <button
-                        disabled={!isTeacherDeadlineActive}
-                        className="btn-delete"
-                        onClick={() => handleDeleteTopic(thesis._id)}
-                      >
-                        Xóa
-                      </button>
-                      <button
-                        style={{ marginLeft: "8px" }}
-                        onClick={() => {
-                          setEditThesisId(thesis._id);
-                          setShowForm(true);
-                        }}
-                        disabled={!isTeacherDeadlineActive}
-                      >
-                        Sửa
-                      </button>
-                      {showForm && editThesisId === thesis._id && (
-                        <EditThesisForm
-                          onClose={() => setShowForm(false)}
-                          fetchTheses={fetchTheses}
-                          id={thesis._id}
-                          data={{
-                            thesisName: thesis.thesisName,
-                            instructor: thesis.instructor,
-                            studentQuantity: thesis.studentQuantity,
-                            require: thesis.require,
-                          }}
-                        />
-                      )}
-                    </>
-                  </p>
-                ) : (
-                  <>
-                    <button disabled={!isTeacherDeadlineActive}>Xóa</button>
-                    <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
+                  <p className="btn-action">
+                    <button
+                      disabled={!isTeacherDeadlineActive}
+                      className="btn-delete"
+                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      <i class="bx bx-trash"></i>
+                      Xóa
+                    </button>
+                    <button
+                      style={{ marginLeft: "8px" }}
+                      onClick={() => {
+                        setEditThesisId(thesis._id);
+                        setShowForm(true);
+                      }}
+                      disabled={!isTeacherDeadlineActive}>
+                      <i class="bx bx-pencil"></i>
                       Sửa
                     </button>
-                  </>
+                    {showForm && editThesisId === thesis._id && (
+                      <EditThesisForm
+                        onClose={() => setShowForm(false)}
+                        fetchTheses={fetchTheses}
+                        id={thesis._id}
+                        data={{
+                          thesisName: thesis.thesisName,
+                          instructor: thesis.instructor,
+                          studentQuantity: thesis.studentQuantity,
+                          require: thesis.require,
+                        }}
+                      />
+                    )}
+                  </p>
+                ) : (
+                  <p className="btn-action">
+                    <button disabled={!isTeacherDeadlineActive}>
+                      <i class="bx bx-trash"></i>
+                      Xóa
+                    </button>
+                    <button
+                      style={{ marginLeft: "8px" }}
+                      disabled={!isTeacherDeadlineActive}>
+                      <i class="bx bx-pencil"></i>
+                      Sửa
+                    </button>
+                  </p>
                 )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="pagination">
-        <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          Trang trước
-        </button>
-        <span>
-          Trang {currentPage} / {totalPages}
-        </span>
-        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          Trang sau
-        </button>
-      </div>
+      {theses.length > 10 && (
+        <Pagination
+          handleNextPage={handleNextPage}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          handlePrevPage={handlePrevPage}
+        />
+      )}
+      {/* <ModalAction
+        onClose={() => setShowModalDelete(true)}
+        // handleDelete={handleUnregisterTopic(id)}
+      /> */}
     </>
   );
 };

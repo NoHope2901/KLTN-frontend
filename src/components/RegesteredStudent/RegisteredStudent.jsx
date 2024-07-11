@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./RegisteredStudent.css";
 import RgtStudentItem from "../RgtStudentItem/RgtStudentItem";
+import Pagination from "../Pagination/Pagination";
 
 const RegisteredStudent = () => {
   const [data, setData] = useState([]);
@@ -123,19 +124,25 @@ const RegisteredStudent = () => {
         </tbody>
       </table>
       {data.length > 10 && (
-        <div className="pagination">
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            Trang trước
-          </button>
-          <span>
-            Trang {currentPage} / {totalPages}
-          </span>
-          <button
-            onClick={handleNextPage}
-            disabled={currentPage === totalPages}>
-            Trang sau
-          </button>
-        </div>
+        <Pagination
+          handleNextPage={handleNextPage}
+          handlePrevPage={handlePrevPage}
+          totalPages={totalPages}
+          currentPage={currentPage}
+        />
+        // <div className="pagination">
+        //   <button onClick={handlePrevPage} disabled={currentPage === 1}>
+        //     Trang trước
+        //   </button>
+        //   <span>
+        //     Trang {currentPage} / {totalPages}
+        //   </span>
+        //   <button
+        //     onClick={handleNextPage}
+        //     disabled={currentPage === totalPages}>
+        //     Trang sau
+        //   </button>
+        // </div>
       )}
     </>
   );

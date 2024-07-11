@@ -5,8 +5,11 @@ const RgtStudentItem = ({ index, studentCode, id, handleDeleteStudent }) => {
   return (
     <div className="student-item">
       <p>{studentCode}</p>
-      <button className="delete-student-btn" onClick={() => handleDeleteStudent(id, studentCode, index)}>
-        xóa
+      <button
+        className="delete-student-btn"
+        onClick={() => handleDeleteStudent(id, studentCode, index)}>
+        <i class="bx bx-trash"></i>
+        Xoá
       </button>
     </div>
   );

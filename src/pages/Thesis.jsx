@@ -70,17 +70,25 @@ const Thesis = () => {
   return (
     <>
       <div className="thesis-page">
-        {role === "teacher" && (
-          <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
-            Thêm mới
-          </button>
-        )}
-        <input
-          type="text"
-          placeholder="Tìm theo tên giáo viên ... "
-          value={searchTerm}
-          onChange={handleSearchChange}
-        />
+        <div className="header-search">
+          <div className="input-search">
+            <input
+              type="text"
+              placeholder="Tìm theo tên giáo viên ... "
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+            <i class="bx bx-search"></i>
+          </div>
+          {role === "teacher" && (
+            <button
+              className="add-thesis-btn"
+              onClick={() => setShowForm(true)}>
+              <i class="bx bx-plus"></i>
+              Thêm mới
+            </button>
+          )}
+        </div>
         {deadline && (
           <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
         )}

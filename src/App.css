@@ -34,6 +34,10 @@ button {
   height: 38px;
   padding: 8px 12px;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 button:hover {
@@ -48,7 +52,9 @@ button[disabled]:hover {
 .btn-delete {
   background-color: rgb(211, 47, 47);
 }
-
+.btn-action {
+  display: flex;
+}
 .btn-delete:hover {
   background-color: rgb(180, 36, 36);
 }
@@ -126,7 +132,22 @@ select {
   justify-content: center;
   font-size: 24px;
   font-weight: 700;
-  border-radius: 12px;
   background-color: rgb(211, 208, 208);
-  border: 1px solid;
+}
+.no-data > .bx {
+  font-size: 50px;
+}
+
+.pagination {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+.pagination > button {
+  margin: 5px 15px;
+}
+.bx {
+  font-size: 16px;
 }
