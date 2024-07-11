@@ -26,22 +26,22 @@ const ShowThesisTable = ({ data }) => {
         <thead>
           <tr>
             <th>STT</th>
-            <th>Kỳ</th>
-            <th>Năm</th>
-            <th>Mã sv</th>
-            <th>Họ Đệm</th>
-            <th>Tên</th>
-            <th>Ngày Sinh</th>
-            <th>Lớp</th>
+            <th>KỲ</th>
+            <th>NĂM</th>
+            <th>MSV</th>
+            <th>HỌ ĐỆM</th>
+            <th>TÊN</th>
+            <th>NGÀY SINH</th>
+            <th>LỚP</th>
             <th>SĐT</th>
-            <th>Đề Tài</th>
+            <th>ĐỀ TÀI</th>
             <th>GVHD</th>
-            <th>Chủ Tịch</th>
-            <th>Phản Biện</th>
-            <th>Ngày</th>
-            <th>Điểm</th>
-            <th>Gia Hạn</th>
-            <th>Trạng Thái</th>
+            <th>CHỦ TỊCH</th>
+            <th>PHẢN BIỆN</th>
+            <th>NGÀY</th>
+            <th>ĐIỂM</th>
+            <th>GIA HẠN</th>
+            <th>TRẠNG THÁI</th>
           </tr>
         </thead>
         <tbody>

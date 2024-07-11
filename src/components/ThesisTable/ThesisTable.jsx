@@ -161,8 +161,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         <thead>
           <tr>
             <th>STT</th>
-            <th>Kỳ</th>
-            <th>Năm</th>
+            <th>KỲ</th>
+            <th>NĂM</th>
             <th>GVHD</th>
             <th>MÃ GV</th>
             <th>SĐT GV</th>
