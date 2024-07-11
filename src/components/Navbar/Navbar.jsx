@@ -21,44 +21,70 @@ const Navbar = () => {
     <>
       <div className="navbar">
         <nav>
-          <ul className="nav-menu">
-            <li>
-              <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/">
-                Home
-              </NavLink>
-            </li>
-            {role !== "admin" && (
+          <div style={{ display: "flex", gap: "12px" }}>
+            <div className="logo">
+              <img src={require("../images/Dai-hoc-thang-long.png")} alt="" />
+            </div>
+            <ul className="nav-menu">
               <li>
-                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/notifications">
-                  Notifications
+                <NavLink
+                  activeClassName="active"
+                  style={{ textDecoration: "none" }}
+                  to="/">
+                  <i class="bx bx-home"></i>
+                  Home
                 </NavLink>
               </li>
-            )}
-            <li>
-              <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/theses">
-                Theses
-              </NavLink>
-            </li>
-            {role === "admin" && (
+              {role !== "admin" && (
+                <li>
+                  <NavLink
+                    activeClassName="active"
+                    style={{ textDecoration: "none" }}
+                    to="/notifications">
+                    <i class="bx bx-bell-minus"></i>
+                    Notifications
+                  </NavLink>
+                </li>
+              )}
               <li>
-                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/admin">
-                  Admin
+                <NavLink
+                  activeClassName="active"
+                  style={{ textDecoration: "none" }}
+                  to="/theses">
+                  <i class="bx bx-group"></i>
+                  Theses
                 </NavLink>
               </li>
-            )}
-            {role === "teacher" && (
-              <li>
-                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/teacher">
-                  Teacher
-                </NavLink>
-              </li>
-            )}
-          </ul>
+              {role === "admin" && (
+                <li>
+                  <NavLink
+                    activeClassName="active"
+                    style={{ textDecoration: "none" }}
+                    to="/admin">
+                    <i class="bx bx-child"></i>
+                    Admin
+                  </NavLink>
+                </li>
+              )}
+              {role === "teacher" && (
+                <li>
+                  <NavLink
+                    activeClassName="active"
+                    style={{ textDecoration: "none" }}
+                    to="/teacher">
+                    <i class="bx bxs-graduation"></i>
+                    Teacher
+                  </NavLink>
+                </li>
+              )}
+            </ul>
+          </div>
           <div className="nav-logout">
             <img src={require("../images/no-avt.png")} alt="" />
             {role !== "admin" && (
               <p>
-                {localStorage.getItem("fullname")} - {localStorage.getItem("code")}
+                {localStorage.getItem("fullname")} -{" "}
+                {localStorage.getItem("code")}
               </p>
             )}
 
