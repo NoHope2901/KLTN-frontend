@@ -1,9 +1,24 @@
 // src/components/ThesisTable.jsx
-import React from "react";
+import React, { useState } from "react";
 import "./ShowThesisTable.css";
 
 const ShowThesisTable = ({ data }) => {
-  const role = localStorage.getItem("role");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const end = currentPage * itemsPerPage;
+  const start = end - itemsPerPage;
+  const renderData = data.slice(start, end);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
   return (
     <>
       <table className="thesis-table">
@@ -31,7 +46,7 @@ const ShowThesisTable = ({ data }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((dt, index) => (
+          {renderData.map((dt, index) => (
             <tr key={dt._id}>
               <td>{index + 1}</td>
               <td>{dt.ky}</td>
@@ -54,6 +69,17 @@ const ShowThesisTable = ({ data }) => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Trang trước
+        </button>
+        <span>
+          Trang {currentPage} / {totalPages}
+        </span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Trang sau
+        </button>
+      </div>
     </>
   );
 };

@@ -14,6 +14,23 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
   const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = theses.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const totalPages = Math.ceil(theses.length / itemsPerPage);
+
   const fetchRegisteredThesis = async () => {
     try {
       const response = await fetch("http://localhost:3001/theses/registered", {
@@ -73,16 +90,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setRegisteredThesisId(id);
       } else {
@@ -96,16 +110,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -149,7 +160,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           </tr>
         </thead>
         <tbody>
-          {theses.map((thesis, index) => (
+          {currentItems.map((thesis, index) => (
             <tr key={thesis._id}>
               <td>{index + 1}</td>
               <td>{thesis.semester}</td>
@@ -163,9 +174,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
               <td>
                 {role === "student" ? (
                   registeredThesisId === thesis._id ? (
-                    <button
-                      onClick={() => handleUnregisterTopic(thesis._id)}
-                      disabled={!isStudentDeadlineActive}>
+                    <button onClick={() => handleUnregisterTopic(thesis._id)} disabled={!isStudentDeadlineActive}>
                       Hủy
                     </button>
                   ) : (
@@ -175,7 +184,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }>
+                      }
+                    >
                       Đăng ký
                     </button>
                   )
@@ -185,7 +195,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       <button
                         disabled={!isTeacherDeadlineActive}
                         className="btn-delete"
-                        onClick={() => handleDeleteTopic(thesis._id)}>
+                        onClick={() => handleDeleteTopic(thesis._id)}
+                      >
                         Xóa
                       </button>
                       <button
@@ -194,7 +205,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                           setEditThesisId(thesis._id);
                           setShowForm(true);
                         }}
-                        disabled={!isTeacherDeadlineActive}>
+                        disabled={!isTeacherDeadlineActive}
+                      >
                         Sửa
                       </button>
                       {showForm && editThesisId === thesis._id && (
@@ -215,9 +227,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                 ) : (
                   <>
                     <button disabled={!isTeacherDeadlineActive}>Xóa</button>
-                    <button
-                      style={{ marginLeft: "8px" }}
-                      disabled={!isTeacherDeadlineActive}>
+                    <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
                       Sửa
                     </button>
                   </>
@@ -227,6 +237,17 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           ))}
         </tbody>
       </table>
+      <div className="pagination">
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Trang trước
+        </button>
+        <span>
+          Trang {currentPage} / {totalPages}
+        </span>
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Trang sau
+        </button>
+      </div>
     </>
   );
 };

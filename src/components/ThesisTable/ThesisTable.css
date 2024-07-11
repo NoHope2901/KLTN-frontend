@@ -19,3 +19,11 @@ button[disabled] {
 button {
   margin-top: 2px;
 }
+
+.pagination {
+  position: fixed;
+  bottom: 100px;
+}
+.pagination > button {
+  margin: 5px 15px;
+}
