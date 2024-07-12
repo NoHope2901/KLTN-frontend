@@ -5,7 +5,7 @@ import "./CSS/Notification.css";
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [message, setMessage] = useState("");
-  const [readNotif, setReadNotif] = useState("");
+  // const [readNotif, setReadNotif] = useState("");
   const token = localStorage.getItem("token");
 
   const getNotification = async () => {
@@ -25,15 +25,12 @@ const Notifications = () => {
 
   const handleReadNotification = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/notifications/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await fetch(`http://localhost:3001/notifications/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       // if (response.ok) {
       //   getNotification();
       // }
@@ -43,15 +40,12 @@ const Notifications = () => {
   };
   const handleDeleteNotification = async () => {
     try {
-      const response = await fetch(
-        "http://localhost:3001/notifications/delete",
-        {
-          method: "Delete",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      await fetch("http://localhost:3001/notifications/delete", {
+        method: "Delete",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       getNotification();
     } catch (error) {}
   };
@@ -72,19 +66,16 @@ const Notifications = () => {
                 setMessage(notif.message);
                 handleReadNotification(notif._id);
               }}
-              className={notif.isRead ? "" : "bold"}>
+              className={notif.isRead ? "" : "bold"}
+            >
               {notif.message}
             </li>
           ))}
         </ul>
-        <button
-          className="delete-notif"
-          onClick={() => handleDeleteNotification()}>
+        <button className="delete-notif" onClick={() => handleDeleteNotification()}>
           Xóa Thông báo đã đọc
         </button>
-        <div className="notification-content">
-          {message && <div className="show-content">{message}</div>}
-        </div>
+        <div className="notification-content">{message && <div className="show-content">{message}</div>}</div>
       </div>
     </>
   );

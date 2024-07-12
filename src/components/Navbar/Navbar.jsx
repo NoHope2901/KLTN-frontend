@@ -27,40 +27,28 @@ const Navbar = () => {
             </div>
             <ul className="nav-menu">
               <li>
-                <NavLink
-                  activeClassName="active"
-                  style={{ textDecoration: "none" }}
-                  to="/">
+                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/">
                   <i class="bx bx-home"></i>
                   Home
                 </NavLink>
               </li>
               {role !== "admin" && (
                 <li>
-                  <NavLink
-                    activeClassName="active"
-                    style={{ textDecoration: "none" }}
-                    to="/notifications">
+                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/notifications">
                     <i class="bx bx-bell-minus"></i>
                     Notifications
                   </NavLink>
                 </li>
               )}
               <li>
-                <NavLink
-                  activeClassName="active"
-                  style={{ textDecoration: "none" }}
-                  to="/theses">
+                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/theses">
                   <i class="bx bx-group"></i>
                   Theses
                 </NavLink>
               </li>
               {role === "admin" && (
                 <li>
-                  <NavLink
-                    activeClassName="active"
-                    style={{ textDecoration: "none" }}
-                    to="/admin">
+                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/admin">
                     <i class="bx bx-child"></i>
                     Admin
                   </NavLink>
@@ -68,10 +56,7 @@ const Navbar = () => {
               )}
               {role === "teacher" && (
                 <li>
-                  <NavLink
-                    activeClassName="active"
-                    style={{ textDecoration: "none" }}
-                    to="/teacher">
+                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/teacher">
                     <i class="bx bxs-graduation"></i>
                     Teacher
                   </NavLink>
@@ -83,8 +68,7 @@ const Navbar = () => {
             <img src={require("../images/no-avt.png")} alt="" />
             {role !== "admin" && (
               <p>
-                {localStorage.getItem("fullname")} -{" "}
-                {localStorage.getItem("code")}
+                {localStorage.getItem("fullname")} - {localStorage.getItem("code")}
               </p>
             )}
 

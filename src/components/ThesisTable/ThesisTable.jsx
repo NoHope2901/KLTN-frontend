@@ -48,7 +48,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         }
       }
     } catch (error) {
-      console.error("Failed to fetch registered thesis", error);
+      // console.error("Failed to fetch registered thesis", error);
     }
   };
 
@@ -65,7 +65,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         setIsTeacherDeadlineActive(false);
       }
     } catch (error) {
-      console.error("Failed to fetch deadline", error);
+      // console.error("Failed to fetch deadline", error);
     }
   };
   const fetchStudentDeadline = async () => {
@@ -81,7 +81,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         setIsStudentDeadlineActive(false);
       }
     } catch (error) {
-      console.error("Failed to fetch deadline", error);
+      // console.error("Failed to fetch deadline", error);
     }
   };
 
@@ -93,16 +93,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setRegisteredThesisId(id);
       } else {
@@ -116,16 +113,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -190,7 +184,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       onClick={() => handleUnregisterTopic(thesis._id)}
                       // onClick={handleOpenModal(thesis._id)}
-                      disabled={!isStudentDeadlineActive}>
+                      disabled={!isStudentDeadlineActive}
+                    >
                       Hủy
                     </button>
                   ) : (
@@ -200,7 +195,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }>
+                      }
+                    >
                       Đăng ký
                     </button>
                   )
@@ -209,7 +205,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       disabled={!isTeacherDeadlineActive}
                       className="btn-delete"
-                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      onClick={() => handleDeleteTopic(thesis._id)}
+                    >
                       <i class="bx bx-trash"></i>
                       Xóa
                     </button>
@@ -219,7 +216,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         setEditThesisId(thesis._id);
                         setShowForm(true);
                       }}
-                      disabled={!isTeacherDeadlineActive}>
+                      disabled={!isTeacherDeadlineActive}
+                    >
                       <i class="bx bx-pencil"></i>
                       Sửa
                     </button>
@@ -243,9 +241,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       <i class="bx bx-trash"></i>
                       Xóa
                     </button>
-                    <button
-                      style={{ marginLeft: "8px" }}
-                      disabled={!isTeacherDeadlineActive}>
+                    <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
                       <i class="bx bx-pencil"></i>
                       Sửa
                     </button>

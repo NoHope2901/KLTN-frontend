@@ -63,9 +63,7 @@ const Thesis = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredTheses = theses.filter((item) =>
-    item.instructorName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredTheses = theses.filter((item) => item.instructorName.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
     <>
@@ -81,24 +79,15 @@ const Thesis = () => {
             <i class="bx bx-search"></i>
           </div>
           {role === "teacher" && (
-            <button
-              className="add-thesis-btn"
-              onClick={() => setShowForm(true)}>
+            <button className="add-thesis-btn" onClick={() => setShowForm(true)}>
               <i class="bx bx-plus"></i>
               Thêm mới
             </button>
           )}
         </div>
-        {deadline && (
-          <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>
-        )}
+        {deadline && <h2>Deadline: {deadline !== "Invalid Date" && deadline}</h2>}
 
-        {showForm && (
-          <AddThesisForm
-            onClose={() => setShowForm(false)}
-            fetchTheses={fetchTheses}
-          />
-        )}
+        {showForm && <AddThesisForm onClose={() => setShowForm(false)} fetchTheses={fetchTheses} />}
         <ThesisTable theses={filteredTheses} fetchTheses={fetchTheses} />
       </div>
     </>
