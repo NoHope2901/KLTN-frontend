@@ -10,13 +10,13 @@ const Pagination = ({
     <>
       <div className="pagination">
         <button onClick={handlePrevPage} disabled={currentPage === 1}>
-          <i class="bx bx-chevron-left"></i>
+          <i className="bx bx-chevron-left"></i>
         </button>
         <span>
           Trang {currentPage} / {totalPages}
         </span>
         <button onClick={handleNextPage} disabled={currentPage === totalPages}>
-          <i class="bx bx-chevron-right"></i>
+          <i className="bx bx-chevron-right"></i>
         </button>
       </div>
     </>

@@ -10,7 +10,7 @@ const ModalAction = ({ onClose, handleDelete }) => {
           <div className="form-button">
             <button onClick={onClose}>Huỷ</button>
             <button className="btn-delete" onClick={handleDelete}>
-              <i class="bx bx-trash"></i>
+              <i className="bx bx-trash"></i>
               Xoá
             </button>
           </div>
