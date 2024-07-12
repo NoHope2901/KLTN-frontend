@@ -11,6 +11,8 @@ import Navbar from "./components/Navbar/Navbar.jsx";
 import "./App.css";
 import ProtectedRouteWithRole from "./components/ProtectRoutes/ProtectedRoutesWithRole.jsx";
 import Teacher from "./pages/Teacher.jsx";
+import Submit from "./pages/Submit.jsx";
+import Council from "./pages/Council.jsx";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -57,6 +59,22 @@ function App() {
               element={
                 <ProtectedRouteWithRole allowedRoles={["admin", "teacher", "student"]}>
                   <Thesis />
+                </ProtectedRouteWithRole>
+              }
+            />
+            <Route
+              path="/submit"
+              element={
+                <ProtectedRouteWithRole allowedRoles={["student"]}>
+                  <Submit />
+                </ProtectedRouteWithRole>
+              }
+            />
+            <Route
+              path="/council"
+              element={
+                <ProtectedRouteWithRole allowedRoles={["teacher"]}>
+                  <Council />
                 </ProtectedRouteWithRole>
               }
             />

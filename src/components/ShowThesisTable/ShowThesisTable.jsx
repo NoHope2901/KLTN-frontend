@@ -42,6 +42,7 @@ const ShowThesisTable = ({ data }) => {
             <th>ĐIỂM</th>
             <th>GIA HẠN</th>
             <th>TRẠNG THÁI</th>
+            <th>ĐƯỢC PHÉP BẢO VỆ</th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +65,7 @@ const ShowThesisTable = ({ data }) => {
               <td>{dt.d}</td>
               <td>{dt.gh}</td>
               <td>{dt.tt}</td>
+              <td>CÓ</td>
             </tr>
           ))}
         </tbody>

@@ -29,21 +29,21 @@ const Navbar = () => {
               <li>
                 <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/">
                   <i class="bx bx-home"></i>
-                  Home
+                  Trang chủ
                 </NavLink>
               </li>
               {role !== "admin" && (
                 <li>
                   <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/notifications">
                     <i class="bx bx-bell-minus"></i>
-                    Notifications
+                    Thông báo
                   </NavLink>
                 </li>
               )}
               <li>
                 <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/theses">
-                  <i class="bx bx-group"></i>
-                  Theses
+                  <i class="bx bx-book-open"></i>
+                  Khóa luận
                 </NavLink>
               </li>
               {role === "admin" && (
@@ -58,7 +58,23 @@ const Navbar = () => {
                 <li>
                   <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/teacher">
                     <i class="bx bxs-graduation"></i>
-                    Teacher
+                    Giáo viên
+                  </NavLink>
+                </li>
+              )}
+              {role === "teacher" && (
+                <li>
+                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/council">
+                    <i class="bx bxs-group"></i>
+                    Hội Đồng BV
+                  </NavLink>
+                </li>
+              )}
+              {role === "student" && (
+                <li>
+                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/submit">
+                    <i class="bx bx-upload"></i>
+                    Nộp bài tập
                   </NavLink>
                 </li>
               )}

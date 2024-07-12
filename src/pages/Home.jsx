@@ -9,7 +9,7 @@ const Home = () => {
     try {
       const response = await fetch("http://localhost:3001/api");
       const dataResponse = await response.json();
-      console.log("data là ", dataResponse);
+
       setData(dataResponse);
     } catch (error) {
       console.error("Failed to fetch data", error);
