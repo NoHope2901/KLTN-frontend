@@ -27,37 +27,52 @@ const Navbar = () => {
             </div>
             <ul className="nav-menu">
               <li>
-                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/">
-                  <i class="bx bx-home"></i>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : "none")}
+                  style={{ textDecoration: "none" }}
+                  to="/">
+                  <i className="bx bx-home"></i>
                   Home
                 </NavLink>
               </li>
               {role !== "admin" && (
                 <li>
-                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/notifications">
-                    <i class="bx bx-bell-minus"></i>
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "active" : "none")}
+                    style={{ textDecoration: "none" }}
+                    to="/notifications">
+                    <i className="bx bx-bell-minus"></i>
                     Notifications
                   </NavLink>
                 </li>
               )}
               <li>
-                <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/theses">
-                  <i class="bx bx-group"></i>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : "none")}
+                  style={{ textDecoration: "none" }}
+                  to="/theses">
+                  <i className="bx bx-group"></i>
                   Theses
                 </NavLink>
               </li>
               {role === "admin" && (
                 <li>
-                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/admin">
-                    <i class="bx bx-child"></i>
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "active" : "none")}
+                    style={{ textDecoration: "none" }}
+                    to="/admin">
+                    <i className="bx bx-child"></i>
                     Admin
                   </NavLink>
                 </li>
               )}
               {role === "teacher" && (
                 <li>
-                  <NavLink activeClassName="active" style={{ textDecoration: "none" }} to="/teacher">
-                    <i class="bx bxs-graduation"></i>
+                  <NavLink
+                    className={({ isActive }) => (isActive ? "active" : "none")}
+                    style={{ textDecoration: "none" }}
+                    to="/teacher">
+                    <i className="bx bxs-graduation"></i>
                     Teacher
                   </NavLink>
                 </li>
@@ -68,7 +83,8 @@ const Navbar = () => {
             <img src={require("../images/no-avt.png")} alt="" />
             {role !== "admin" && (
               <p>
-                {localStorage.getItem("fullname")} - {localStorage.getItem("code")}
+                {localStorage.getItem("fullname")} -{" "}
+                {localStorage.getItem("code")}
               </p>
             )}
 

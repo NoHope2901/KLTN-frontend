@@ -70,7 +70,7 @@ const ShowThesisTable = ({ data }) => {
       </table>
       {!data.length ? (
         <div className="no-data">
-          <i class="bx bx-error-alt"></i>Không có dữ liệu
+          <i className="bx bx-error-alt"></i>Không có dữ liệu
         </div>
       ) : null}
       {data.length > 10 && (

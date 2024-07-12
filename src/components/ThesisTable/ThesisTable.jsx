@@ -93,13 +93,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
       } else {
@@ -113,13 +116,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -184,8 +190,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       onClick={() => handleUnregisterTopic(thesis._id)}
                       // onClick={handleOpenModal(thesis._id)}
-                      disabled={!isStudentDeadlineActive}
-                    >
+                      disabled={!isStudentDeadlineActive}>
                       Hủy
                     </button>
                   ) : (
@@ -195,8 +200,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }
-                    >
+                      }>
                       Đăng ký
                     </button>
                   )
@@ -205,9 +209,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       disabled={!isTeacherDeadlineActive}
                       className="btn-delete"
-                      onClick={() => handleDeleteTopic(thesis._id)}
-                    >
-                      <i class="bx bx-trash"></i>
+                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      <i className="bx bx-trash"></i>
                       Xóa
                     </button>
                     <button
@@ -216,9 +219,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         setEditThesisId(thesis._id);
                         setShowForm(true);
                       }}
-                      disabled={!isTeacherDeadlineActive}
-                    >
-                      <i class="bx bx-pencil"></i>
+                      disabled={!isTeacherDeadlineActive}>
+                      <i className="bx bx-pencil"></i>
                       Sửa
                     </button>
                     {showForm && editThesisId === thesis._id && (
@@ -238,11 +240,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                 ) : (
                   <p className="btn-action">
                     <button disabled={!isTeacherDeadlineActive}>
-                      <i class="bx bx-trash"></i>
+                      <i className="bx bx-trash"></i>
                       Xóa
                     </button>
-                    <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
-                      <i class="bx bx-pencil"></i>
+                    <button
+                      style={{ marginLeft: "8px" }}
+                      disabled={!isTeacherDeadlineActive}>
+                      <i className="bx bx-pencil"></i>
                       Sửa
                     </button>
                   </p>
