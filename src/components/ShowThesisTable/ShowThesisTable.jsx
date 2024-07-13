@@ -38,6 +38,8 @@ const ShowThesisTable = ({ data }) => {
             <th>GVHD</th>
             <th>CHỦ TỊCH</th>
             <th>PHẢN BIỆN</th>
+            <th>THƯ KÝ</th>
+            <th>ỦY VIÊN</th>
             <th>NGÀY</th>
             <th>ĐIỂM</th>
             <th>GIA HẠN</th>
@@ -56,11 +58,13 @@ const ShowThesisTable = ({ data }) => {
               <td>{dt.t}</td>
               <td>{dt.ns}</td>
               <td>{dt.lcn}</td>
-              <td>{dt.ns}</td>
+              <td>{dt.sdt}</td>
               <td>{dt.tdt}</td>
               <td>{dt.gvhd}</td>
               <td>{dt.ct}</td>
               <td>{dt.pb}</td>
+              <td>{dt.tk}</td>
+              <td>{dt.uv}</td>
               <td>{dt.ng}</td>
               <td>{dt.d}</td>
               <td>{dt.gh}</td>
