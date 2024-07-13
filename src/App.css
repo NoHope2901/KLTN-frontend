@@ -5,6 +5,7 @@ html {
   padding: 0;
   height: 100%;
   font-family: Arial, sans-serif;
+  color: rgb(23, 43, 77);
 }
 
 .container {
@@ -150,4 +151,8 @@ select {
 }
 .bx {
   font-size: 16px;
+}
+
+.width-80px {
+  width: 80px;
 }

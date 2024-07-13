@@ -169,7 +169,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
             <th>TÊN ĐỀ TÀI</th>
             <th>SỐ LƯỢNG</th>
             <th>YÊU CẦU</th>
-            <th></th>
+            <th className="width-80px"></th>
           </tr>
         </thead>
         <tbody>

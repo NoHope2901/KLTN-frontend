@@ -61,9 +61,37 @@
   background-color: #777;
 }
 .nav-logout {
+  position: relative;
+  margin-right: 10px;
+}
+.nav-logout:hover > .menu-logout {
+  display: block;
+  visibility: visible;
+  opacity: 1;
+}
+.menu-logout {
+  display: block;
+  position: absolute;
+  visibility: hidden;
+  background-color: #fff;
+  border-radius: 8px;
+  color: rgb(23, 43, 77);
+  min-width: 200px;
+  top: 50px;
+  right: -5px;
+  box-shadow: rgba(0, 0, 0, 0.31) 0px 0px 1px 0px,
+    rgba(0, 0, 0, 0.25) 0px 5px 8px -2px;
+  transition: all 0.3s ease 0s;
+}
+
+.menu-logout > .your-name {
+  border-bottom: 1px solid #e1e1e1;
+  height: 40px;
   display: flex;
   align-items: center;
-  gap: 8px;
+}
+.menu-logout > p {
+  padding: 12px;
 }
 
 .nav-logout > img {
@@ -71,6 +99,7 @@
   height: 35px;
   object-fit: cover;
   border-radius: 50%;
+  cursor: pointer;
 }
 .logo {
   background-color: #fff;

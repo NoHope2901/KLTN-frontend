@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 const Navbar = () => {
+  // const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
@@ -17,6 +18,9 @@ const Navbar = () => {
     localStorage.removeItem("fullname");
     navigate("/login");
   };
+  // const toggleMenu = () => {
+  //   setIsOpen(!isOpen);
+  // };
   return (
     <>
       <div className="navbar">
@@ -30,8 +34,7 @@ const Navbar = () => {
                 <NavLink
                   className={({ isActive }) => (isActive ? "active" : "none")}
                   style={{ textDecoration: "none" }}
-                  to="/"
-                >
+                  to="/">
                   <i className="bx bx-home"></i>
                   Trang chủ
                 </NavLink>
@@ -41,8 +44,7 @@ const Navbar = () => {
                   <NavLink
                     className={({ isActive }) => (isActive ? "active" : "none")}
                     style={{ textDecoration: "none" }}
-                    to="/notifications"
-                  >
+                    to="/notifications">
                     <i className="bx bx-bell-minus"></i>
                     Thông Báo
                   </NavLink>
@@ -52,8 +54,7 @@ const Navbar = () => {
                 <NavLink
                   className={({ isActive }) => (isActive ? "active" : "none")}
                   style={{ textDecoration: "none" }}
-                  to="/theses"
-                >
+                  to="/theses">
                   <i className="bx bx-book-open"></i>
                   Khóa Luận
                 </NavLink>
@@ -63,8 +64,7 @@ const Navbar = () => {
                   <NavLink
                     className={({ isActive }) => (isActive ? "active" : "none")}
                     style={{ textDecoration: "none" }}
-                    to="/admin"
-                  >
+                    to="/admin">
                     <i className="bx bx-child"></i>
                     Admin
                   </NavLink>
@@ -75,8 +75,7 @@ const Navbar = () => {
                   <NavLink
                     className={({ isActive }) => (isActive ? "active" : "none")}
                     style={{ textDecoration: "none" }}
-                    to="/teacher"
-                  >
+                    to="/teacher">
                     <i className="bx bxs-graduation"></i>
                     Giáo Viên
                   </NavLink>
@@ -87,8 +86,7 @@ const Navbar = () => {
                   <NavLink
                     className={({ isActive }) => (isActive ? "active" : "none")}
                     style={{ textDecoration: "none" }}
-                    to="/council"
-                  >
+                    to="/council">
                     <i className="bx bx-group"></i>
                     Hội Đồng BV
                   </NavLink>
@@ -99,8 +97,7 @@ const Navbar = () => {
                   <NavLink
                     className={({ isActive }) => (isActive ? "active" : "none")}
                     style={{ textDecoration: "none" }}
-                    to="/submit"
-                  >
+                    to="/submit">
                     <i className="bx bx-upload"></i>
                     Nộp Tài Liệu
                   </NavLink>
@@ -109,16 +106,27 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="nav-logout">
-            <img src={require("../images/no-avt.png")} alt="" />
-            {role !== "admin" && (
-              <p>
-                {localStorage.getItem("fullname")} - {localStorage.getItem("code")}
-              </p>
-            )}
+            <img
+              src={require("../images/no-avt.png")}
+              alt=""
+              // onClick={toggleMenu}
+            />
 
-            <Link to="/login">
-              <button onClick={handleLogout}>Logout</button>
-            </Link>
+            {/* {isOpen && ( */}
+            <div className="menu-logout">
+              {role !== "admin" && (
+                <p className="your-name">
+                  {localStorage.getItem("fullname")} -{" "}
+                  {localStorage.getItem("code")}
+                </p>
+              )}
+              <p>
+                <Link to="/login">
+                  <button onClick={handleLogout}>Logout</button>
+                </Link>
+              </p>
+            </div>
+            {/* )} */}
           </div>
         </nav>
       </div>
