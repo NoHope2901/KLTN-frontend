@@ -256,6 +256,11 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           ))}
         </tbody>
       </table>
+      {!theses.length ? (
+        <div className="no-data">
+          <i className="bx bx-error-alt"></i>Không có dữ liệu
+        </div>
+      ) : null}
       {theses.length > 10 && (
         <Pagination
           handleNextPage={handleNextPage}
