@@ -4,9 +4,11 @@ import CouncilTable from "../components/CouncilTable/CouncilTable";
 
 const Council = () => {
   return (
-    <div>
-      <CouncilTable />
-    </div>
+    <>
+      <div>
+        <CouncilTable />
+      </div>
+    </>
   );
 };
 
