@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./ShowThesisTableForAdmin.css";
 import Pagination from "../Pagination/Pagination";
 import SelectCouncil from "../SelectCouncil/SelectCouncil";
+import SelectTwoOption from "../SelectTwoOption/SelectTwoOption";
 
 const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,6 +22,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
 
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
+  // role = field - tên trường muốn cập nhật.
   const handleSelectChange = async (value, role) => {
     try {
       const studentCode = value.slice(0, 6);
@@ -115,9 +117,23 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
               </td>
               <td>{dt.ng}</td>
               <td>{dt.d}</td>
-              <td>{dt.gh}</td>
-              <td>{dt.tt}</td>
-              <td>CÓ</td>
+              <td>
+                <SelectTwoOption
+                  value={dt.msv + " " + dt.gh}
+                  onChange={(value) => handleSelectChange(value, "extend")}
+                  msv={dt.msv}
+                  option={{ op1: "Không", op2: "Có" }}
+                />
+              </td>
+              <td>
+                <SelectTwoOption
+                  value={dt.msv + " " + dt.tt}
+                  onChange={(value) => handleSelectChange(value, "protectStatus")}
+                  msv={dt.msv}
+                  option={{ op1: "Chưa bảo vệ", op2: "Đã bảo vệ" }}
+                />
+              </td>
+              <td>{dt.alp}</td>
             </tr>
           ))}
         </tbody>

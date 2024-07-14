@@ -69,7 +69,7 @@ const ShowThesisTable = ({ data }) => {
               <td>{dt.d}</td>
               <td>{dt.gh}</td>
               <td>{dt.tt}</td>
-              <td>CÓ</td>
+              <td>{dt.alp}</td>
             </tr>
           ))}
         </tbody>
