@@ -30,34 +30,40 @@ const SubmitThesisForm = () => {
   };
 
   return (
-    <div>
-      <div className="form-container">
-        <h2>Nộp link bài tập</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <input
-              type="text"
-              required
-              name="linkDrive"
-              placeholder="Link Drive"
-              value={formData.linkDrive}
-              onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <input
-              type="text"
-              required
-              name="linkGithub"
-              placeholder="Link Github"
-              value={formData.linkGithub}
-              onChange={handleChange}
-            />
-          </div>
-          <button type="submit">Nộp Bài</button>
-        </form>
+    <>
+      <div className="center">
+        <div className="form-container">
+          <h2>Nộp link bài tập</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="form-group">
+              <input
+                type="text"
+                required
+                name="linkDrive"
+                placeholder="Link Drive"
+                value={formData.linkDrive}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                type="text"
+                required
+                name="linkGithub"
+                placeholder="Link Github"
+                value={formData.linkGithub}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="form-button">
+              <button type="submit" style={{ minWidth: " 120px" }}>
+                Nộp Bài
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

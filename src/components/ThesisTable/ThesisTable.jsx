@@ -4,6 +4,7 @@ import "./ThesisTable.css";
 import EditThesisForm from "../EditThesisForm/EditThesisForm";
 import ModalAction from "../ModalAction/ModalAction";
 import Pagination from "../Pagination/Pagination";
+import ModalSuccess from "../ModalSuccess";
 
 const ThesisTable = ({ theses, fetchTheses }) => {
   const role = localStorage.getItem("role");
@@ -13,6 +14,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   // Lưu trữ ID của đề tài đã đăng ký
   const [registeredThesisId, setRegisteredThesisId] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [showModalSuccess, setShowModalSuccess] = useState(false);
   // const [showModalDelete, setShowModalDelete] = useState(false);
   const [editThesisId, setEditThesisId] = useState("");
   const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
@@ -94,15 +96,19 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId(id);
+        setShowModalSuccess(true);
       } else {
         alert("Thời hạn đăng ký đã hết hoặc chưa tới");
       }
@@ -114,13 +120,16 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/change/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -205,8 +214,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         deleteStudentStatusRequest(studentCode);
                       }}
                       // onClick={handleOpenModal(thesis._id)}
-                      disabled={!isStudentDeadlineActive}
-                    >
+                      disabled={!isStudentDeadlineActive}>
                       Hủy
                     </button>
                   ) : (
@@ -216,8 +224,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }
-                    >
+                      }>
                       Đăng ký
                     </button>
                   )
@@ -226,8 +233,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       disabled={!isTeacherDeadlineActive}
                       className="btn-delete"
-                      onClick={() => handleDeleteTopic(thesis._id)}
-                    >
+                      onClick={() => handleDeleteTopic(thesis._id)}>
                       <i className="bx bx-trash"></i>
                       Xóa
                     </button>
@@ -237,8 +243,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         setEditThesisId(thesis._id);
                         setShowForm(true);
                       }}
-                      disabled={!isTeacherDeadlineActive}
-                    >
+                      disabled={!isTeacherDeadlineActive}>
                       <i className="bx bx-pencil"></i>
                       Sửa
                     </button>
@@ -262,7 +267,9 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       <i className="bx bx-trash"></i>
                       Xóa
                     </button>
-                    <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
+                    <button
+                      style={{ marginLeft: "8px" }}
+                      disabled={!isTeacherDeadlineActive}>
                       <i className="bx bx-pencil"></i>
                       Sửa
                     </button>
@@ -290,6 +297,9 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         onClose={() => setShowModalDelete(true)}
         // handleDelete={handleUnregisterTopic(id)}
       /> */}
+      {showModalSuccess && (
+        <ModalSuccess handleClose={() => setShowModalSuccess(false)} />
+      )}
     </>
   );
 };

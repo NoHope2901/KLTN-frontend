@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
 const Navbar = () => {
-  // const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
@@ -18,9 +17,6 @@ const Navbar = () => {
     localStorage.removeItem("fullname");
     navigate("/login");
   };
-  // const toggleMenu = () => {
-  //   setIsOpen(!isOpen);
-  // };
   return (
     <>
       <div className="navbar">
@@ -106,13 +102,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="nav-logout">
-            <img
-              src={require("../images/no-avt.png")}
-              alt=""
-              // onClick={toggleMenu}
-            />
-
-            {/* {isOpen && ( */}
+            <img src={require("../images/no-avt.png")} alt="" />
             <div className="menu-logout">
               {role !== "admin" && (
                 <p className="your-name">
@@ -126,7 +116,6 @@ const Navbar = () => {
                 </Link>
               </p>
             </div>
-            {/* )} */}
           </div>
         </nav>
       </div>

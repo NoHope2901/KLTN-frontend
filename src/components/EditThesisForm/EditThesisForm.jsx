@@ -82,6 +82,8 @@ const EditThesisForm = ({ onClose, fetchTheses, id, data }) => {
               <input
                 required
                 type="number"
+                min="0"
+                max="5"
                 name="studentQuantity"
                 placeholder="Số lượng"
                 value={formData.studentQuantity}
