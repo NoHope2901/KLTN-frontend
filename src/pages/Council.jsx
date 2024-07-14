@@ -16,7 +16,6 @@ const Council = () => {
         },
       });
       if (!response.ok) {
-        alert("co loi xay ra");
       }
       const listData = await response.json();
       setData(listData);

@@ -1,6 +1,7 @@
 import React from "react";
 import "./CouncilTable.css";
 import SelectTwoOption from "../SelectTwoOption/SelectTwoOption";
+import InputScore from "../InputScore/InputScore";
 
 const CouncilTable = ({ data, name }) => {
   const checkRoleInCouncil = (record, name) => {
@@ -10,18 +11,18 @@ const CouncilTable = ({ data, name }) => {
     if (record.commissioner === name) return "Ủy Viên";
   };
 
-  const handleSelectChange = async (value, role) => {
+  const handleSelectChange = async (value, field) => {
     try {
       const studentCode = value.slice(0, 6);
       const updateName = value.slice(7);
-      const response = await fetch(`http://localhost:3001/status/update`, {
+      await fetch(`http://localhost:3001/status/update`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
-          role: role,
+          field: field,
           studentCode,
           updateName,
         }),
@@ -31,37 +32,48 @@ const CouncilTable = ({ data, name }) => {
 
   return (
     <>
-      <table className="council-table">
-        <thead>
-          <tr>
-            <th>Vai Trò</th>
-            <th>Sinh Viên</th>
-            <th>Link Tài Liệu Của Sinh Viên</th>
-            <th>Link Sản Phẩm Của Sinh Viên</th>
-            <th>Điểm</th>
-            <th>Cho Phép Bảo Vệ</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((dt) => (
+      {!data.length ? (
+        <div className="no-data">
+          <i className="bx bx-error-alt"></i>Không có dữ liệu
+        </div>
+      ) : (
+        <table className="council-table">
+          <thead>
             <tr>
-              <td>{checkRoleInCouncil(dt, name)}</td>
-              <td>{dt.studentCode}</td>
-              <td>http://dsfkdsfjsdfjl;jk.sdflksdfsdkf</td>
-              <td>http://dsfkdsfjsdfjl;jk.sdflksdfsdkf</td>
-              <td>{dt.score}</td>
-              <td>
-                <SelectTwoOption
-                  onChange={(value) => handleSelectChange(value, "allowProtect")}
-                  value={dt.studentCode + " " + dt.allowProtect}
-                  msv={dt.studentCode}
-                  option={{ op1: "Không", op2: "Có" }}
-                />
-              </td>
+              <th>Vai Trò</th>
+              <th>Sinh Viên</th>
+              <th>Link Tài Liệu Của Sinh Viên</th>
+              <th>Link Sản Phẩm Của Sinh Viên</th>
+              <th className="width-10">Điểm</th>
+              <th className="width-10">Cho Phép Bảo Vệ</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((dt) => (
+              <tr>
+                <td>{checkRoleInCouncil(dt, name)}</td>
+                <td>{dt.studentCode}</td>
+                <td>http://dsfkdsfjsdfjl;jk.sdflksdfsdkf</td>
+                <td>http://dsfkdsfjsdfjl;jk.sdflksdfsdkf</td>
+                <td>
+                  <InputScore
+                    onBlur={(value) => handleSelectChange(`${dt.studentCode} ${value}`, "score")}
+                    value={dt.score}
+                  />
+                </td>
+                <td>
+                  <SelectTwoOption
+                    onChange={(value) => handleSelectChange(value, "allowProtect")}
+                    value={dt.studentCode + " " + dt.allowProtect}
+                    msv={dt.studentCode}
+                    option={{ op1: "Không", op2: "Có" }}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </>
   );
 };

@@ -132,6 +132,11 @@ const RegisteredStudent = () => {
           ))}
         </tbody>
       </table>
+      {!data.length ? (
+        <div className="no-data">
+          <i className="bx bx-error-alt"></i>Không có dữ liệu
+        </div>
+      ) : null}
       {data.length > 10 && (
         <Pagination
           handleNextPage={handleNextPage}

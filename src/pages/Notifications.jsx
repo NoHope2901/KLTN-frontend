@@ -71,7 +71,13 @@ const Notifications = () => {
               {notif.message}
             </li>
           ))}
+          {!notifications.length ? (
+            <div className="no-data">
+              <i className="bx bx-error-alt"></i>Không có dữ liệu
+            </div>
+          ) : null}
         </ul>
+
         <button className="delete-notif" onClick={() => handleDeleteNotification()}>
           Xóa Thông báo đã đọc
         </button>

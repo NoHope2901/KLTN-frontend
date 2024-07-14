@@ -3,6 +3,7 @@ import "./ShowThesisTableForAdmin.css";
 import Pagination from "../Pagination/Pagination";
 import SelectCouncil from "../SelectCouncil/SelectCouncil";
 import SelectTwoOption from "../SelectTwoOption/SelectTwoOption";
+import InputDate from "../InputDate/InputDate";
 
 const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +24,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   // role = field - tên trường muốn cập nhật.
-  const handleSelectChange = async (value, role) => {
+  const handleChange = async (value, field) => {
     try {
       const studentCode = value.slice(0, 6);
       const updateName = value.slice(7);
@@ -34,7 +35,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify({
-          role: role,
+          field: field,
           studentCode,
           updateName,
         }),
@@ -87,7 +88,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
                 <SelectCouncil
                   listTeacher={listTeacher}
                   value={dt.msv + " " + dt.ct}
-                  onChange={(value) => handleSelectChange(value, "president")}
+                  onChange={(value) => handleChange(value, "president")}
                   msv={dt.msv}
                 />
               </td>
@@ -95,7 +96,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
                 <SelectCouncil
                   listTeacher={listTeacher}
                   value={dt.msv + " " + dt.pb}
-                  onChange={(value) => handleSelectChange(value, "counterArgument")}
+                  onChange={(value) => handleChange(value, "counterArgument")}
                   msv={dt.msv}
                 />
               </td>
@@ -103,7 +104,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
                 <SelectCouncil
                   listTeacher={listTeacher}
                   value={dt.msv + " " + dt.tk}
-                  onChange={(value) => handleSelectChange(value, "secretary")}
+                  onChange={(value) => handleChange(value, "secretary")}
                   msv={dt.msv}
                 />
               </td>
@@ -111,16 +112,18 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
                 <SelectCouncil
                   listTeacher={listTeacher}
                   value={dt.msv + " " + dt.uv}
-                  onChange={(value) => handleSelectChange(value, "commissioner")}
+                  onChange={(value) => handleChange(value, "commissioner")}
                   msv={dt.msv}
                 />
               </td>
-              <td>{dt.ng}</td>
+              <td>
+                <InputDate onBlur={(value) => handleChange(`${dt.msv} ${value}`, "date")} value={dt.ng} />
+              </td>
               <td>{dt.d}</td>
               <td>
                 <SelectTwoOption
                   value={dt.msv + " " + dt.gh}
-                  onChange={(value) => handleSelectChange(value, "extend")}
+                  onChange={(value) => handleChange(value, "extend")}
                   msv={dt.msv}
                   option={{ op1: "Không", op2: "Có" }}
                 />
@@ -128,7 +131,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
               <td>
                 <SelectTwoOption
                   value={dt.msv + " " + dt.tt}
-                  onChange={(value) => handleSelectChange(value, "protectStatus")}
+                  onChange={(value) => handleChange(value, "protectStatus")}
                   msv={dt.msv}
                   option={{ op1: "Chưa bảo vệ", op2: "Đã bảo vệ" }}
                 />
