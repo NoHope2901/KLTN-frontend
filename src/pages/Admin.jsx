@@ -1,8 +1,10 @@
 // src/pages/Admin.jsx
-import React from "react";
+import React, { useState } from "react";
 import "./CSS/Admin.css";
 import DeadlineForm from "../components/DeadlineForm/DeadlineForm.jsx";
+import ModalSuccess from "../components/ModalSuccess/index.jsx";
 const Admin = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = async (newDeadline) => {
     try {
       const token = localStorage.getItem("token");
@@ -16,9 +18,9 @@ const Admin = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        alert("Deadline created successfully!");
-        console.log("New Deadline:", data);
+        // const data = await response.json();
+        setIsOpen(true);
+        // console.log("New Deadline:", data);
       } else {
         const errorText = await response.text();
         alert(`Failed to create deadline: ${errorText}`);
@@ -37,6 +39,7 @@ const Admin = () => {
           <DeadlineForm onSubmit={handleSubmit} />
         </div>
       </div>
+      {isOpen && <ModalSuccess handleClose={() => setIsOpen(false)} />}
     </>
   );
 };

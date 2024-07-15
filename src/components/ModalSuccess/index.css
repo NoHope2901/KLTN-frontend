@@ -1,0 +1,10 @@
+.success {
+  width: 40px;
+  height: 40px;
+  border: 6px solid green;
+  border-radius: 50%;
+}
+.success > .bx {
+  font-size: 3rem;
+  color: green;
+}

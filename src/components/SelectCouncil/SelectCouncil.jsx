@@ -8,8 +8,11 @@ const SelectCouncil = ({ listTeacher, onChange, value, msv }) => {
   return (
     <select onChange={handleChange} defaultValue={value}>
       <option value={`${msv} Không`}></option>
+
       {listTeacher.map((teacher, index) => (
-        <option key={index} value={`${msv} ${teacher.firstName} ${teacher.lastName}`}>
+        <option
+          key={index}
+          value={`${msv} ${teacher.firstName} ${teacher.lastName}`}>
           {`${teacher.firstName} ${teacher.lastName}`}
         </option>
       ))}

@@ -13,6 +13,11 @@ html {
   height: 100vh;
   width: 100vw;
 }
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .content {
   padding: 20px;
@@ -72,6 +77,10 @@ label {
   justify-content: center;
   gap: 20px;
 }
+.input-date {
+  margin-bottom: 0;
+  border-radius: 6px;
+}
 
 input {
   display: block;
@@ -95,7 +104,8 @@ input[type="datetime-local"] {
 select {
   height: 38px;
   width: 100%;
-  padding: 8px;
+  min-width: 70px;
+  padding: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
@@ -120,6 +130,14 @@ select {
 .form-container {
   background: #fff;
   width: 50%;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-notifi {
+  background: #fff;
+  width: 30%;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
