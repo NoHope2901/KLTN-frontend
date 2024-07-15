@@ -4,7 +4,7 @@ import "./CSS/Admin.css";
 import DeadlineForm from "../components/DeadlineForm/DeadlineForm.jsx";
 import ModalSuccess from "../components/ModalSuccess/index.jsx";
 const Admin = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = async (newDeadline) => {
     try {
       const token = localStorage.getItem("token");

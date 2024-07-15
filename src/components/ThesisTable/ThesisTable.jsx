@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from "react";
 import "./ThesisTable.css";
 import EditThesisForm from "../EditThesisForm/EditThesisForm";
-import ModalAction from "../ModalAction/ModalAction";
 import Pagination from "../Pagination/Pagination";
 import ModalSuccess from "../ModalSuccess";
 
@@ -15,7 +14,6 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   const [registeredThesisId, setRegisteredThesisId] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [showModalSuccess, setShowModalSuccess] = useState(false);
-  // const [showModalDelete, setShowModalDelete] = useState(false);
   const [editThesisId, setEditThesisId] = useState("");
   const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
   const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false);
@@ -172,10 +170,6 @@ const ThesisTable = ({ theses, fetchTheses }) => {
     }
   };
 
-  // const handleOpenModal = (id) => {
-  //   setShowModalDelete(true);
-  // };
-
   return (
     <>
       <table className="thesis-table">
@@ -293,10 +287,6 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           handlePrevPage={handlePrevPage}
         />
       )}
-      {/* <ModalAction
-        onClose={() => setShowModalDelete(true)}
-        // handleDelete={handleUnregisterTopic(id)}
-      /> */}
       {showModalSuccess && (
         <ModalSuccess handleClose={() => setShowModalSuccess(false)} />
       )}
