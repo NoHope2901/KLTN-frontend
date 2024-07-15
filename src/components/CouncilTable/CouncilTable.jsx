@@ -53,8 +53,8 @@ const CouncilTable = ({ data, name }) => {
               <tr>
                 <td>{checkRoleInCouncil(dt, name)}</td>
                 <td>{dt.studentCode}</td>
-                <td>http://dsfkdsfjsdfjl;jk.sdflksdfsdkf</td>
-                <td>http://dsfkdsfjsdfjl;jk.sdflksdfsdkf</td>
+                <td>{dt.linkDrive}</td>
+                <td>{dt.linkGithub}</td>
                 <td>
                   <InputScore
                     onBlur={(value) => handleSelectChange(`${dt.studentCode} ${value}`, "score")}
