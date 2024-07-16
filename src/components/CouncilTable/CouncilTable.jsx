@@ -9,6 +9,7 @@ const CouncilTable = ({ data, name }) => {
     if (record.counterArgument === name) return "Phản Biện";
     if (record.secretary === name) return "Thư Ký";
     if (record.commissioner === name) return "Ủy Viên";
+    if (record.instructor === name) return "Giáo Viên Hướng Dẫn";
   };
 
   const handleSelectChange = async (value, field) => {
@@ -50,7 +51,7 @@ const CouncilTable = ({ data, name }) => {
           </thead>
           <tbody>
             {data.map((dt) => (
-              <tr>
+              <tr key={dt._id}>
                 <td>{checkRoleInCouncil(dt, name)}</td>
                 <td>{dt.studentCode}</td>
                 <td>{dt.linkDrive}</td>

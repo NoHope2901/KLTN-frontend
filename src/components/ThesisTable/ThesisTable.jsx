@@ -93,16 +93,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setRegisteredThesisId(id);
         toast.success("Dăng ký thành công");
@@ -117,16 +114,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:3001/theses/change/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
@@ -137,23 +131,23 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       console.error("Failed to unregister thesis", error);
     }
   };
-  const deleteStudentStatusRequest = async (studentCode) => {
-    try {
-      const response = await fetch(`http://localhost:3001/status/delete`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ studentCode: studentCode }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to delete member. Please try again.");
-      }
-    } catch (error) {
-      console.error("Failed to DELETE status", error);
-    }
-  };
+  // const deleteStudentStatusRequest = async (studentCode) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:3001/status/delete`, {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ studentCode: studentCode }),
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Failed to delete member. Please try again.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to DELETE status", error);
+  //   }
+  // };
 
   const handleDeleteTopic = async (id) => {
     try {
@@ -204,10 +198,11 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       onClick={() => {
                         handleUnregisterTopic(thesis._id);
-                        deleteStudentStatusRequest(studentCode);
+                        // deleteStudentStatusRequest(studentCode);
                       }}
                       // onClick={handleOpenModal(thesis._id)}
-                      disabled={!isStudentDeadlineActive}>
+                      disabled={!isStudentDeadlineActive}
+                    >
                       Hủy
                     </button>
                   ) : (
@@ -217,7 +212,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }>
+                      }
+                    >
                       Đăng ký
                     </button>
                   )
@@ -226,7 +222,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     <button
                       disabled={!isTeacherDeadlineActive}
                       className="btn-delete"
-                      onClick={() => handleDeleteTopic(thesis._id)}>
+                      onClick={() => handleDeleteTopic(thesis._id)}
+                    >
                       <i className="bx bx-trash"></i>
                       Xóa
                     </button>
@@ -236,7 +233,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         setEditThesisId(thesis._id);
                         setShowForm(true);
                       }}
-                      disabled={!isTeacherDeadlineActive}>
+                      disabled={!isTeacherDeadlineActive}
+                    >
                       <i className="bx bx-pencil"></i>
                       Sửa
                     </button>
@@ -260,9 +258,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                       <i className="bx bx-trash"></i>
                       Xóa
                     </button>
-                    <button
-                      style={{ marginLeft: "8px" }}
-                      disabled={!isTeacherDeadlineActive}>
+                    <button style={{ marginLeft: "8px" }} disabled={!isTeacherDeadlineActive}>
                       <i className="bx bx-pencil"></i>
                       Sửa
                     </button>
