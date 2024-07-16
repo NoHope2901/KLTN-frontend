@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import "./ThesisTable.css";
 import EditThesisForm from "../EditThesisForm/EditThesisForm";
 import Pagination from "../Pagination/Pagination";
-import ModalSuccess from "../ModalSuccess";
 import { toast } from "react-toastify";
 
 const ThesisTable = ({ theses, fetchTheses }) => {
@@ -14,7 +13,6 @@ const ThesisTable = ({ theses, fetchTheses }) => {
   // Lưu trữ ID của đề tài đã đăng ký
   const [registeredThesisId, setRegisteredThesisId] = useState("");
   const [showForm, setShowForm] = useState(false);
-  const [showModalSuccess, setShowModalSuccess] = useState(false);
   const [editThesisId, setEditThesisId] = useState("");
   const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
   const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false);
@@ -287,9 +285,6 @@ const ThesisTable = ({ theses, fetchTheses }) => {
           totalPages={totalPages}
           handlePrevPage={handlePrevPage}
         />
-      )}
-      {showModalSuccess && (
-        <ModalSuccess handleClose={() => setShowModalSuccess(false)} />
       )}
     </>
   );
