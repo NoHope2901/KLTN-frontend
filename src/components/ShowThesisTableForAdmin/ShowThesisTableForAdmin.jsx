@@ -12,7 +12,6 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
   const end = currentPage * itemsPerPage;
   const start = end - itemsPerPage;
   const renderData = data.slice(start, end);
-
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -72,7 +71,7 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
         </thead>
         <tbody>
           {renderData.map((dt, index) => (
-            <tr key={dt._id}>
+            <tr key={index}>
               <td>{index + 1}</td>
               <td>{dt.ky}</td>
               <td>{dt.nam}</td>
@@ -117,7 +116,10 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
                 />
               </td>
               <td>
-                <InputDate onBlur={(value) => handleChange(`${dt.msv} ${value}`, "date")} value={dt.ng} />
+                <InputDate
+                  onBlur={(value) => handleChange(`${dt.msv} ${value}`, "date")}
+                  value={dt.ng}
+                />
               </td>
               <td>{dt.d}</td>
               <td>

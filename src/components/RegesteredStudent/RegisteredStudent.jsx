@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./RegisteredStudent.css";
 import RgtStudentItem from "../RgtStudentItem/RgtStudentItem";
 import Pagination from "../Pagination/Pagination";
+import Loading from "../Loading";
 
 const RegisteredStudent = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("token");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +30,9 @@ const RegisteredStudent = () => {
     try {
       let updatedData = [...data];
 
-      updatedData[index].members = updatedData[index].members.filter((mbId) => mbId !== memberId);
+      updatedData[index].members = updatedData[index].members.filter(
+        (mbId) => mbId !== memberId
+      );
       setData(updatedData);
 
       await deleteStudentRequest(id, memberId);
@@ -44,14 +48,17 @@ const RegisteredStudent = () => {
         throw new Error("Token is missing. Please log in again.");
       }
 
-      const response = await fetch(`http://localhost:3001/theses/deletemember/${id}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ deleteCode: memberId }),
-      });
+      const response = await fetch(
+        `http://localhost:3001/theses/deletemember/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ deleteCode: memberId }),
+        }
+      );
       if (!response.ok) {
         throw new Error("Failed to delete member. Please try again.");
       }
@@ -82,27 +89,34 @@ const RegisteredStudent = () => {
       if (!token) {
         throw new Error("Token is missing. Please log in again.");
       }
-      const response = await fetch("http://localhost:3001/theses/getbyteachercode", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      setLoading(true);
+      const response = await fetch(
+        "http://localhost:3001/theses/getbyteachercode",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       const receivedData = await response.json();
 
       setData(receivedData);
     } catch (error) {
+      setLoading(false);
       console.error("Failed to fetch theses", error);
       alert("Có lỗi xảy ra, vui lòng thử lại sau");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-
   return (
     <>
+      {loading && <Loading />}
       <table className="rgt-student-table">
         <thead>
           <tr>

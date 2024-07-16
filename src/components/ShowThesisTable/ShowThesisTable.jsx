@@ -10,7 +10,7 @@ const ShowThesisTable = ({ data }) => {
   const end = currentPage * itemsPerPage;
   const start = end - itemsPerPage;
   const renderData = data.slice(start, end);
-
+  console.log(2222, renderData);
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };
@@ -49,7 +49,7 @@ const ShowThesisTable = ({ data }) => {
         </thead>
         <tbody>
           {renderData.map((dt, index) => (
-            <tr key={dt._id}>
+            <tr key={index}>
               <td>{index + 1}</td>
               <td>{dt.ky}</td>
               <td>{dt.nam}</td>

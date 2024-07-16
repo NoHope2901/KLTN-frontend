@@ -3,10 +3,12 @@ import React, { useState, useEffect } from "react";
 import "./CSS/Thesis.css";
 import AddThesisForm from "../components/AddThesisForm/AddThesisForm.jsx";
 import ThesisTable from "../components/ThesisTable/ThesisTable.jsx";
+import Loading from "../components/Loading/index.jsx";
 
 const Thesis = () => {
   const [showForm, setShowForm] = useState(false);
   const [theses, setTheses] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [deadline, setDeadline] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -27,6 +29,7 @@ const Thesis = () => {
 
   const fetchTheses = async () => {
     try {
+      setLoading(true);
       const response = await fetch("http://localhost:3001/theses", {
         method: "GET",
         headers: {
@@ -36,7 +39,10 @@ const Thesis = () => {
       const data = await response.json();
       setTheses(data);
     } catch (error) {
+      setLoading(false);
       console.error("Failed to fetch theses", error);
+    } finally {
+      setLoading(false);
     }
   };
   const fetchDeadline = async () => {
@@ -69,6 +75,7 @@ const Thesis = () => {
 
   return (
     <>
+      {loading && <Loading />}
       <div className="thesis-page">
         <div className="header-search">
           <div className="input-search">
