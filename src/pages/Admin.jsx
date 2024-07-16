@@ -3,16 +3,14 @@ import React from "react";
 import "./CSS/Admin.css";
 import DeadlineForm from "../components/DeadlineForm/DeadlineForm.jsx";
 import { toast } from "react-toastify";
+import { Header } from "../constans/index.js";
 const Admin = () => {
   const handleSubmit = async (newDeadline) => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch("http://localhost:3001/deadlines", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: Header(token),
         body: JSON.stringify(newDeadline),
       });
 

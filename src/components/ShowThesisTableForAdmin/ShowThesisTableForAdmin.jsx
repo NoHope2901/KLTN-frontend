@@ -4,6 +4,7 @@ import Pagination from "../Pagination/Pagination";
 import SelectCouncil from "../SelectCouncil/SelectCouncil";
 import SelectTwoOption from "../SelectTwoOption/SelectTwoOption";
 import InputDate from "../InputDate/InputDate";
+import { Header } from "../../constans";
 
 const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,12 +28,9 @@ const ShowThesisTableForAdmin = ({ listTeacher, data, setData }) => {
     try {
       const studentCode = value.slice(0, 6);
       const updateName = value.slice(7);
-      const response = await fetch(`http://localhost:3001/status/update`, {
+      await fetch(`http://localhost:3001/status/update`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        headers: Header(localStorage.getItem("token")),
         body: JSON.stringify({
           field: field,
           studentCode,

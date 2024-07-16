@@ -1,6 +1,7 @@
 // src/components/AddThesisForm.jsx
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { Header } from "../../constans";
 
 const AddThesisForm = ({ onClose, fetchTheses }) => {
   const [formData, setFormData] = useState({
@@ -35,10 +36,7 @@ const AddThesisForm = ({ onClose, fetchTheses }) => {
     try {
       const response = await fetch("http://localhost:3001/theses/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+        headers: Header(token),
         body: JSON.stringify(formData),
       });
       if (response.ok) {

@@ -4,6 +4,7 @@ import "./CSS/Thesis.css";
 import AddThesisForm from "../components/AddThesisForm/AddThesisForm.jsx";
 import ThesisTable from "../components/ThesisTable/ThesisTable.jsx";
 import Loading from "../components/Loading/index.jsx";
+import { Header } from "../constans/index.js";
 
 const Thesis = () => {
   const [showForm, setShowForm] = useState(false);
@@ -32,9 +33,11 @@ const Thesis = () => {
       setLoading(true);
       const response = await fetch("http://localhost:3001/theses", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        //   Authorization: `Bearer ${token}`,
+        // },
+        headers: Header(token),
       });
       const data = await response.json();
       setTheses(data);
@@ -49,9 +52,7 @@ const Thesis = () => {
     try {
       const response = await fetch("http://localhost:3001/deadlines", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: Header(token),
       });
       const data = await response.json();
       setDeadline(formatDate(data.endDate));

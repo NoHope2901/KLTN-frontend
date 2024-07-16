@@ -86,19 +86,21 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="page">
-      {loading && <Loading />}
+    <>
+      <div className="page">
+        {loading && <Loading />}
 
-      {role === "admin" ? (
-        <ShowThesisTableForAdmin
-          listTeacher={listTeacher}
-          data={data}
-          setData={setData}
-        />
-      ) : (
-        <ShowThesisTable data={data} />
-      )}
-    </div>
+        {role === "admin" ? (
+          <ShowThesisTableForAdmin
+            listTeacher={listTeacher}
+            data={data}
+            setData={setData}
+          />
+        ) : (
+          <ShowThesisTable data={data} />
+        )}
+      </div>
+    </>
   );
 };
 

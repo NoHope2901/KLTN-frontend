@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { Header } from "../../constans";
 
 const SubmitThesisForm = () => {
   const [formData, setFormData] = useState({
@@ -22,10 +23,7 @@ const SubmitThesisForm = () => {
         "http://localhost:3001/status/updatedocument",
         {
           method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-type": "application/json",
-          },
+          headers: Header(localStorage.getItem("token")),
           body: JSON.stringify(formData),
         }
       );

@@ -1,19 +1,18 @@
 // hội đồng
 import React, { useEffect, useState } from "react";
 import CouncilTable from "../components/CouncilTable/CouncilTable";
+import { Header } from "../constans";
 
 const Council = () => {
   const [data, setData] = useState([]);
   const name = localStorage.getItem("fullname");
+  const token = localStorage.getItem("token");
 
   const fetchData = async () => {
     try {
       const response = await fetch(`http://localhost:3001/status/getlist`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        headers: Header(token),
       });
       if (!response.ok) {
       }

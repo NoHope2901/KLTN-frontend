@@ -4,6 +4,7 @@ import RgtStudentItem from "../RgtStudentItem/RgtStudentItem";
 import Pagination from "../Pagination/Pagination";
 import Loading from "../Loading";
 import { toast } from "react-toastify";
+import { Header } from "../../constans";
 
 const RegisteredStudent = () => {
   const [data, setData] = useState([]);
@@ -53,10 +54,7 @@ const RegisteredStudent = () => {
         `http://localhost:3001/theses/deletemember/${id}`,
         {
           method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
+          headers: Header(token),
           body: JSON.stringify({ deleteCode: memberId }),
         }
       );
@@ -71,10 +69,7 @@ const RegisteredStudent = () => {
     try {
       const response = await fetch(`http://localhost:3001/status/delete`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
+        headers: Header(token),
         body: JSON.stringify({ studentCode: studentCode }),
       });
       if (!response.ok) {
@@ -95,9 +90,7 @@ const RegisteredStudent = () => {
         "http://localhost:3001/theses/getbyteachercode",
         {
           method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: Header(token),
         }
       );
       const receivedData = await response.json();
@@ -159,19 +152,6 @@ const RegisteredStudent = () => {
           totalPages={totalPages}
           currentPage={currentPage}
         />
-        // <div className="pagination">
-        //   <button onClick={handlePrevPage} disabled={currentPage === 1}>
-        //     Trang trước
-        //   </button>
-        //   <span>
-        //     Trang {currentPage} / {totalPages}
-        //   </span>
-        //   <button
-        //     onClick={handleNextPage}
-        //     disabled={currentPage === totalPages}>
-        //     Trang sau
-        //   </button>
-        // </div>
       )}
     </>
   );

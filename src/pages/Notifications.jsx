@@ -1,6 +1,7 @@
 // src/pages/NotificationsPage.jsx
 import React, { useState, useEffect } from "react";
 import "./CSS/Notification.css";
+import { Header } from "../constans";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -12,9 +13,7 @@ const Notifications = () => {
     try {
       const response = await fetch("http://localhost:3001/notifications", {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: Header(token),
       });
       const data = await response.json();
       setNotifications(data);
@@ -27,9 +26,7 @@ const Notifications = () => {
     try {
       await fetch(`http://localhost:3001/notifications/${id}`, {
         method: "PUT",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: Header(token),
       });
       // if (response.ok) {
       //   getNotification();
@@ -66,8 +63,7 @@ const Notifications = () => {
                 setMessage(notif.message);
                 handleReadNotification(notif._id);
               }}
-              className={notif.isRead ? "" : "bold"}
-            >
+              className={notif.isRead ? "" : "bold"}>
               {notif.message}
             </li>
           ))}
@@ -78,10 +74,14 @@ const Notifications = () => {
           ) : null}
         </ul>
 
-        <button className="delete-notif" onClick={() => handleDeleteNotification()}>
+        <button
+          className="delete-notif"
+          onClick={() => handleDeleteNotification()}>
           Xóa Thông báo đã đọc
         </button>
-        <div className="notification-content">{message && <div className="show-content">{message}</div>}</div>
+        <div className="notification-content">
+          {message && <div className="show-content">{message}</div>}
+        </div>
       </div>
     </>
   );

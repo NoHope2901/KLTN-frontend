@@ -10,7 +10,6 @@ const ShowThesisTable = ({ data }) => {
   const end = currentPage * itemsPerPage;
   const start = end - itemsPerPage;
   const renderData = data.slice(start, end);
-  console.log(2222, renderData);
   const handleNextPage = () => {
     setCurrentPage((prevPage) => prevPage + 1);
   };

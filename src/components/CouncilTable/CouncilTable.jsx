@@ -2,6 +2,7 @@ import React from "react";
 import "./CouncilTable.css";
 import SelectTwoOption from "../SelectTwoOption/SelectTwoOption";
 import InputScore from "../InputScore/InputScore";
+import { Header } from "../../constans";
 
 const CouncilTable = ({ data, name }) => {
   const checkRoleInCouncil = (record, name) => {
@@ -18,10 +19,7 @@ const CouncilTable = ({ data, name }) => {
       const updateName = value.slice(7);
       await fetch(`http://localhost:3001/status/update`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+        headers: Header(localStorage.getItem("token")),
         body: JSON.stringify({
           field: field,
           studentCode,
@@ -58,13 +56,17 @@ const CouncilTable = ({ data, name }) => {
                 <td>{dt.linkGithub}</td>
                 <td>
                   <InputScore
-                    onBlur={(value) => handleSelectChange(`${dt.studentCode} ${value}`, "score")}
+                    onBlur={(value) =>
+                      handleSelectChange(`${dt.studentCode} ${value}`, "score")
+                    }
                     value={dt.score}
                   />
                 </td>
                 <td>
                   <SelectTwoOption
-                    onChange={(value) => handleSelectChange(value, "allowProtect")}
+                    onChange={(value) =>
+                      handleSelectChange(value, "allowProtect")
+                    }
                     value={dt.studentCode + " " + dt.allowProtect}
                     msv={dt.studentCode}
                     option={{ op1: "Không", op2: "Có" }}
