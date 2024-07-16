@@ -3,6 +3,7 @@ import "./RegisteredStudent.css";
 import RgtStudentItem from "../RgtStudentItem/RgtStudentItem";
 import Pagination from "../Pagination/Pagination";
 import Loading from "../Loading";
+import { toast } from "react-toastify";
 
 const RegisteredStudent = () => {
   const [data, setData] = useState([]);
@@ -38,7 +39,7 @@ const RegisteredStudent = () => {
       await deleteStudentRequest(id, memberId);
     } catch (error) {
       console.error("Failed to delete student", error);
-      alert("Có lỗi xảy ra, vui lòng thử lại sau");
+      toast.error("Có lỗi xảy ra vui lòng thử lại");
     }
   };
 
@@ -105,7 +106,7 @@ const RegisteredStudent = () => {
     } catch (error) {
       setLoading(false);
       console.error("Failed to fetch theses", error);
-      alert("Có lỗi xảy ra, vui lòng thử lại sau");
+      toast.error("Có lỗi xảy ra vui lòng thử lại");
     } finally {
       setLoading(false);
     }

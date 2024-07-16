@@ -1,10 +1,9 @@
 // src/pages/Admin.jsx
-import React, { useState } from "react";
+import React from "react";
 import "./CSS/Admin.css";
 import DeadlineForm from "../components/DeadlineForm/DeadlineForm.jsx";
-import ModalSuccess from "../components/ModalSuccess/index.jsx";
+import { toast } from "react-toastify";
 const Admin = () => {
-  const [isOpen, setIsOpen] = useState(false);
   const handleSubmit = async (newDeadline) => {
     try {
       const token = localStorage.getItem("token");
@@ -19,15 +18,14 @@ const Admin = () => {
 
       if (response.ok) {
         // const data = await response.json();
-        setIsOpen(true);
-        // console.log("New Deadline:", data);
+        toast.success("Đăng thành công");
       } else {
         const errorText = await response.text();
-        alert(`Failed to create deadline: ${errorText}`);
+        toast.error(`Failed to create deadline: ${errorText}`);
       }
     } catch (error) {
       console.error("Failed to create deadline", error);
-      alert("Error creating deadline. Please try again.");
+      toast.error("Error creating deadline. Please try again.");
     }
   };
 
@@ -39,7 +37,6 @@ const Admin = () => {
           <DeadlineForm onSubmit={handleSubmit} />
         </div>
       </div>
-      {isOpen && <ModalSuccess handleClose={() => setIsOpen(false)} />}
     </>
   );
 };

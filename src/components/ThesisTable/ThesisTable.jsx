@@ -4,6 +4,7 @@ import "./ThesisTable.css";
 import EditThesisForm from "../EditThesisForm/EditThesisForm";
 import Pagination from "../Pagination/Pagination";
 import ModalSuccess from "../ModalSuccess";
+import { toast } from "react-toastify";
 
 const ThesisTable = ({ theses, fetchTheses }) => {
   const role = localStorage.getItem("role");
@@ -106,9 +107,9 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       );
       if (response.ok) {
         setRegisteredThesisId(id);
-        setShowModalSuccess(true);
+        toast.success("Dăng ký thành công");
       } else {
-        alert("Thời hạn đăng ký đã hết hoặc chưa tới");
+        toast.warn("Thời hạn đăng ký đã hết hoặc chưa tới");
       }
       fetchTheses();
     } catch (error) {
@@ -131,7 +132,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
       if (response.ok) {
         setRegisteredThesisId("");
       } else {
-        alert("Thời hạn đăng ký đã hết hoặc chưa tới");
+        toast.warn("Thời hạn đăng ký đã hết hoặc chưa tới");
       }
       fetchTheses();
     } catch (error) {
