@@ -1,164 +1,140 @@
 // src/components/ThesisTable.jsx
-import React, { useState, useEffect } from "react";
-import "./ThesisTable.css";
-import EditThesisForm from "../EditThesisForm/EditThesisForm";
-import Pagination from "../Pagination/Pagination";
-import { toast } from "react-toastify";
-import { Header } from "../../constans";
+import React, { useState, useEffect } from 'react'
+import './ThesisTable.css'
+import EditThesisForm from '../EditThesisForm/EditThesisForm'
+import Pagination from '../Pagination/Pagination'
+import { toast } from 'react-toastify'
+import { Header, SERVER_URL } from '../../constans'
 
 const ThesisTable = ({ theses, fetchTheses }) => {
-  const role = localStorage.getItem("role");
-  const token = localStorage.getItem("token");
-  const studentCode = localStorage.getItem("code");
+  const role = localStorage.getItem('role')
+  const token = localStorage.getItem('token')
+  const studentCode = localStorage.getItem('code')
 
-  // Lưu trữ ID của đề tài đã đăng ký
-  const [registeredThesisId, setRegisteredThesisId] = useState("");
-  const [showForm, setShowForm] = useState(false);
-  const [editThesisId, setEditThesisId] = useState("");
-  const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false);
-  const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false);
+  const [registeredThesisId, setRegisteredThesisId] = useState('')
+  const [showForm, setShowForm] = useState(false)
+  const [editThesisId, setEditThesisId] = useState('')
+  const [isTeacherDeadlineActive, setIsTeacherDeadlineActive] = useState(false)
+  const [isStudentDeadlineActive, setIsStudentDeadlineActive] = useState(false)
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const [currentPage, setCurrentPage] = useState(1)
+  const itemsPerPage = 10
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = theses.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfLastItem = currentPage * itemsPerPage
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage
+  const currentItems = theses.slice(indexOfFirstItem, indexOfLastItem)
 
   const handleNextPage = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
-  };
+    setCurrentPage((prevPage) => prevPage + 1)
+  }
 
   const handlePrevPage = () => {
-    setCurrentPage((prevPage) => prevPage - 1);
-  };
+    setCurrentPage((prevPage) => prevPage - 1)
+  }
 
-  const totalPages = Math.ceil(theses.length / itemsPerPage);
+  const totalPages = Math.ceil(theses.length / itemsPerPage)
 
   const fetchRegisteredThesis = async () => {
     try {
-      const response = await fetch("http://localhost:3001/theses/registered", {
+      const response = await fetch(`${SERVER_URL}/theses/registered`, {
         headers: Header(token),
-      });
+      })
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json()
         if (data.registeredThesisId) {
-          setRegisteredThesisId(data.registeredThesisId);
+          setRegisteredThesisId(data.registeredThesisId)
         }
       }
     } catch (error) {
       // console.error("Failed to fetch registered thesis", error);
     }
-  };
+  }
 
   const fetchTeacherDeadline = async () => {
     try {
-      const response = await fetch("http://localhost:3001/deadlines/teacher", {
+      const response = await fetch(`${SERVER_URL}/deadlines/teacher`, {
         headers: Header(token),
-      });
+      })
       if (response.ok) {
-        setIsTeacherDeadlineActive(true);
+        setIsTeacherDeadlineActive(true)
       } else {
-        setIsTeacherDeadlineActive(false);
+        setIsTeacherDeadlineActive(false)
       }
     } catch (error) {
       // console.error("Failed to fetch deadline", error);
     }
-  };
+  }
   const fetchStudentDeadline = async () => {
     try {
-      const response = await fetch("http://localhost:3001/deadlines/student", {
+      const response = await fetch('${SERVER_URL}/deadlines/student', {
         headers: Header(token),
-      });
+      })
       if (response.ok) {
-        setIsStudentDeadlineActive(true);
+        setIsStudentDeadlineActive(true)
       } else {
-        setIsStudentDeadlineActive(false);
+        setIsStudentDeadlineActive(false)
       }
     } catch (error) {
       // console.error("Failed to fetch deadline", error);
     }
-  };
+  }
 
   useEffect(() => {
-    fetchRegisteredThesis();
-    fetchTeacherDeadline();
-    fetchStudentDeadline();
-  }, [token]);
+    fetchRegisteredThesis()
+    fetchTeacherDeadline()
+    fetchStudentDeadline()
+  }, [token])
 
   const handleRegisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: Header(token),
-        }
-      );
+      const response = await fetch(`${SERVER_URL}/theses/change/${id}`, {
+        method: 'PUT',
+        headers: Header(token),
+      })
       if (response.ok) {
-        setRegisteredThesisId(id);
-        toast.success("Dăng ký thành công");
+        setRegisteredThesisId(id)
+        toast.success('Đăng ký thành công')
       } else {
-        toast.warn("Thời hạn đăng ký đã hết hoặc chưa tới");
+        toast.warn('Thời hạn đăng ký đã hết hoặc chưa tới')
       }
-      fetchTheses();
+      fetchTheses()
     } catch (error) {
-      console.error("Failed to register thesis", error);
+      console.error('Failed to register thesis', error)
     }
-  };
+  }
 
   const handleUnregisterTopic = async (id) => {
     try {
-      const response = await fetch(
-        `http://localhost:3001/theses/change/${id}`,
-        {
-          method: "PUT",
-          headers: Header(token),
-        }
-      );
+      const response = await fetch(`${SERVER_URL}/theses/change/${id}`, {
+        method: 'PUT',
+        headers: Header(token),
+      })
       if (response.ok) {
-        setRegisteredThesisId("");
+        setRegisteredThesisId('')
       } else {
-        toast.warn("Thời hạn đăng ký đã hết hoặc chưa tới");
+        toast.warn('Thời hạn đăng ký đã hết hoặc chưa tới')
       }
-      fetchTheses();
+      fetchTheses()
     } catch (error) {
-      console.error("Failed to unregister thesis", error);
+      console.error('Failed to unregister thesis', error)
     }
-  };
-  // const deleteStudentStatusRequest = async (studentCode) => {
-  //   try {
-  //     const response = await fetch(`http://localhost:3001/status/delete`, {
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ studentCode: studentCode }),
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error("Failed to delete member. Please try again.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to DELETE status", error);
-  //   }
-  // };
+  }
 
   const handleDeleteTopic = async (id) => {
     try {
-      await fetch(`http://localhost:3001/theses/${id}`, {
-        method: "DELETE",
+      await fetch(`${SERVER_URL}/theses/${id}`, {
+        method: 'DELETE',
         headers: Header(token),
-      });
-      fetchTheses();
+      })
+      fetchTheses()
     } catch (error) {
-      console.error("Failed to delete thesis", error);
+      console.error('Failed to delete thesis', error)
     }
-  };
+  }
 
   return (
     <>
-      <table className="thesis-table">
+      <table className='thesis-table'>
         <thead>
           <tr>
             <th>STT</th>
@@ -170,7 +146,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
             <th>TÊN ĐỀ TÀI</th>
             <th>SỐ LƯỢNG</th>
             <th>YÊU CẦU</th>
-            <th className="width-80px"></th>
+            <th className='width-80px'></th>
           </tr>
         </thead>
         <tbody>
@@ -183,18 +159,19 @@ const ThesisTable = ({ theses, fetchTheses }) => {
               <td>{thesis.instructorCode}</td>
               <td>{thesis.instructorPhone}</td>
               <td>{thesis.thesisName}</td>
-              <td>{thesis.members.length + "/" + thesis.studentQuantity}</td>
+              <td>{thesis.members.length + '/' + thesis.studentQuantity}</td>
               <td>{thesis.require}</td>
               <td>
-                {role === "student" ? (
+                {role === 'student' ? (
                   registeredThesisId === thesis._id ? (
                     <button
                       onClick={() => {
-                        handleUnregisterTopic(thesis._id);
+                        handleUnregisterTopic(thesis._id)
                         // deleteStudentStatusRequest(studentCode);
                       }}
                       // onClick={handleOpenModal(thesis._id)}
-                      disabled={!isStudentDeadlineActive}>
+                      disabled={!isStudentDeadlineActive}
+                    >
                       Hủy
                     </button>
                   ) : (
@@ -204,27 +181,30 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                         !!registeredThesisId ||
                         // thesis.members.length >= thesis.studentQuantity ||
                         !isStudentDeadlineActive
-                      }>
+                      }
+                    >
                       Đăng ký
                     </button>
                   )
-                ) : role === "teacher" ? (
-                  <p className="btn-action">
+                ) : role === 'teacher' ? (
+                  <p className='btn-action'>
                     <button
                       disabled={!isTeacherDeadlineActive}
-                      className="btn-delete"
-                      onClick={() => handleDeleteTopic(thesis._id)}>
-                      <i className="bx bx-trash"></i>
+                      className='btn-delete'
+                      onClick={() => handleDeleteTopic(thesis._id)}
+                    >
+                      <i className='bx bx-trash'></i>
                       Xóa
                     </button>
                     <button
-                      style={{ marginLeft: "8px" }}
+                      style={{ marginLeft: '8px' }}
                       onClick={() => {
-                        setEditThesisId(thesis._id);
-                        setShowForm(true);
+                        setEditThesisId(thesis._id)
+                        setShowForm(true)
                       }}
-                      disabled={!isTeacherDeadlineActive}>
-                      <i className="bx bx-pencil"></i>
+                      disabled={!isTeacherDeadlineActive}
+                    >
+                      <i className='bx bx-pencil'></i>
                       Sửa
                     </button>
                     {showForm && editThesisId === thesis._id && (
@@ -242,15 +222,13 @@ const ThesisTable = ({ theses, fetchTheses }) => {
                     )}
                   </p>
                 ) : (
-                  <p className="btn-action">
+                  <p className='btn-action'>
                     <button disabled={!isTeacherDeadlineActive}>
-                      <i className="bx bx-trash"></i>
+                      <i className='bx bx-trash'></i>
                       Xóa
                     </button>
-                    <button
-                      style={{ marginLeft: "8px" }}
-                      disabled={!isTeacherDeadlineActive}>
-                      <i className="bx bx-pencil"></i>
+                    <button style={{ marginLeft: '8px' }} disabled={!isTeacherDeadlineActive}>
+                      <i className='bx bx-pencil'></i>
                       Sửa
                     </button>
                   </p>
@@ -261,8 +239,8 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         </tbody>
       </table>
       {!theses.length ? (
-        <div className="no-data">
-          <i className="bx bx-error-alt"></i>Không có dữ liệu
+        <div className='no-data'>
+          <i className='bx bx-error-alt'></i>Không có dữ liệu
         </div>
       ) : null}
       {theses.length > 10 && (
@@ -274,7 +252,7 @@ const ThesisTable = ({ theses, fetchTheses }) => {
         />
       )}
     </>
-  );
-};
+  )
+}
 
-export default ThesisTable;
+export default ThesisTable
